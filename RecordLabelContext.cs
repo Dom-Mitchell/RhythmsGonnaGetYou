@@ -14,6 +14,7 @@ namespace RhythmsGonnaGetYou
         {
             // var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
             // optionsBuilder.UseLoggerFactory(loggerFactory);
+
             optionsBuilder.UseNpgsql("server = localhost; database = RecordsDatabase"); // Connects to Db
         }
 
