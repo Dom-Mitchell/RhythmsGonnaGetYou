@@ -111,7 +111,7 @@ namespace RhythmsGonnaGetYou
 
                 if (musicGenres.Contains(genre))
                 {
-                    newBand.CountryOfOrigin = genre;
+                    newBand.Style = genre;
                     Console.WriteLine($"{$"Your style, {newBand.Style}, is a real style of music!".Pastel(Color.LimeGreen)}");
                     break;
                 }

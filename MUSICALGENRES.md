@@ -6,7 +6,7 @@ This is a list of the `20` styles that **Hop-Ip Beats** currently supports, list
 
 Example:
 
-<!-- ![image of Finding R & B](./example2.gif) -->
+![image of Finding R & B](./example2.gif)
 
 To find, R & B, look at the list below, there you will see R & B listed or look at the animated gif above!
 
