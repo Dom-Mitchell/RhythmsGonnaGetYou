@@ -35,7 +35,9 @@ namespace RhythmsGonnaGetYou
             Console.Clear();
             DisplayGreeting();
 
-            while (keepGoing)
+            var newBand = new Band();
+
+            while (keepGoing && !newBand.BandExists)
             {
                 Console.Write("\nWhat do you want to do?\n(C)reate Band\n(V)iew band\n(L)ist all Bands\n(R)emove Band\n(S)igned Bands\n(U)nsigned Bands\n(Q)uit\n: ");
                 var choices = Console.ReadLine().ToUpper();
@@ -44,10 +46,7 @@ namespace RhythmsGonnaGetYou
                 {
                     case "C":
                         // Console.Clear();
-                        var newBand = new Band();
-
                         newBand.CreateBand();
-
                         PressAnyKey("\nPress Any Key to Continue! ");
                         keepGoing = false;
                         break;

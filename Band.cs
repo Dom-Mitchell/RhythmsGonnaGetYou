@@ -25,11 +25,7 @@ namespace RhythmsGonnaGetYou
             var context = new RecordLabelContext();
             var newBand = new Band();
 
-            var correctAnswer = false;
-            var realCountry = false;
-            var correctPhoneLength = false;
-
-            // Country list from https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_area
+            // Country list from https://github.com/Domanator13/RhythmsGonnaGetYou/blob/trunk/COUNTRIES.md
             var countries = new List<string>() { "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
             "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria",
             "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Costa Rica", "Croatia",
@@ -46,20 +42,38 @@ namespace RhythmsGonnaGetYou
             "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam",
             "Yemen", "Zambia", "Zimbabwe" };
 
-            Console.WriteLine("\nWhat is the band's name?");
-            newBand.Name = Console.ReadLine();
+            // Genre list from 
+            var musicGenres = new List<string>() {"Acoustic", "Blues", "Classical", "Country", "Dance", "Easy Listening", "EDM", "Electronic Dance Music", "Folk", "Hip-hop", "Jazz", "Latin",
+            "Metal", "New Age", "Pop", "R & B", "Rap", "Rock", "Traditional Folk", "World"};
 
+            var userTypedName = false;
+            while (!userTypedName)
+            {
+                Console.WriteLine("\nWhat is the band's name?");
+                var usersBand = Console.ReadLine();
+
+                if (usersBand != "")
+                {
+                    newBand.Name = usersBand;
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
+                    Console.WriteLine($"{"You must have a band name!".Pastel(Color.Red)}");
+                }
+            }
+
+            var realCountry = false;
             while (!realCountry)
             {
                 Console.WriteLine($"\nWhere is {newBand.Name} from?");
                 var country = Console.ReadLine();
 
-                // Console.WriteLine($"{$"Number of countries: {countries.Count()}".Pastel(Color.LimeGreen)}");
-
                 if (countries.Contains(country))
                 {
                     newBand.CountryOfOrigin = country;
-                    Console.WriteLine($"{$"{newBand.CountryOfOrigin}".Pastel(Color.LimeGreen)}");
+                    Console.WriteLine($"{$"Your county, {newBand.CountryOfOrigin}, is a real country!".Pastel(Color.LimeGreen)}");
                     break;
                 }
                 else
@@ -68,18 +82,50 @@ namespace RhythmsGonnaGetYou
                     Console.WriteLine($"{"We currently support".Pastel(Color.Red)} {$"{countries.Count()}".Pastel(Color.LimeGreen)} {"different countries!".Pastel(Color.Red)}");
                     Console.WriteLine($"{"Please see".Pastel(Color.Red)} {"https://github.com/Domanator13/RhythmsGonnaGetYou/blob/trunk/COUNTRIES.md".Pastel(Color.FromArgb(51, 102, 187))}{" for a list of supported countries!".Pastel(Color.Red)}");
                     Console.WriteLine($"{"Press".Pastel(Color.Red)} {"Ctrl".Pastel(Color.Yellow)} {"and".Pastel(Color.Red)} {"Click".Pastel(Color.Yellow)} {"the above link to view the website!".Pastel(Color.Red)}");
-
                 }
+            }
 
+            var correctWebsiteFormat = false;
+            while (!correctWebsiteFormat)
+            {
+                Console.WriteLine($"\nWhat is {newBand.Name}'s website?");
+                var usersWebsite = Console.ReadLine();
+
+                if (usersWebsite.Contains(".com"))
+                {
+                    newBand.Website = usersWebsite;
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
+                    Console.WriteLine($"{"Your website must contain a".Pastel(Color.Red)} {".com".Pastel(Color.Yellow)} {"ending!".Pastel(Color.Red)}");
+                }
+            }
+
+            var realGenre = false;
+            while (!realGenre)
+            {
+                Console.WriteLine($"\nWhat style of music does {newBand.Name} do?");
+                var genre = Console.ReadLine();
+
+                if (musicGenres.Contains(genre))
+                {
+                    newBand.CountryOfOrigin = genre;
+                    Console.WriteLine($"{$"Your style, {newBand.Style}, is a real style of music!".Pastel(Color.LimeGreen)}");
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
+                    Console.WriteLine($"{"We currently support".Pastel(Color.Red)} {$"{musicGenres.Count()}".Pastel(Color.LimeGreen)} {"different styles!".Pastel(Color.Red)}");
+                    Console.WriteLine($"{"Please see".Pastel(Color.Red)} {"https://github.com/Domanator13/RhythmsGonnaGetYou/blob/trunk/COUNTRIES.md".Pastel(Color.FromArgb(51, 102, 187))}{" for a list of supported countries!".Pastel(Color.Red)}");
+                    Console.WriteLine($"{"Press".Pastel(Color.Red)} {"Ctrl".Pastel(Color.Yellow)} {"and".Pastel(Color.Red)} {"Click".Pastel(Color.Yellow)} {"the above link to view the website!".Pastel(Color.Red)}");
+                }
 
             }
 
-            Console.WriteLine($"\nWhat is {newBand.Name}'s website?");
-            newBand.Website = Console.ReadLine();
-
-            Console.WriteLine($"\nWhat style of music does {newBand.Name} do?");
-            newBand.Style = Console.ReadLine();
-
+            var correctAnswer = false;
             while (!correctAnswer)
             {
                 Console.WriteLine($"\nIs {newBand.Name} signed? (Yes/No)");
@@ -98,12 +144,14 @@ namespace RhythmsGonnaGetYou
                 else
                 {
                     Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
+                    Console.WriteLine($"{"Your choice must be".Pastel(Color.Red)} {"Yes".Pastel(Color.Yellow)} {"or".Pastel(Color.Red)} {"No".Pastel(Color.Yellow)}{"!".Pastel(Color.Red)}");
                 }
             }
 
             Console.WriteLine($"\nWho is the contact for {newBand.Name}?");
             newBand.ContactName = Console.ReadLine();
 
+            var correctPhoneLength = false;
             while (!correctPhoneLength)
             {
                 Console.WriteLine($"\nWhat is {newBand.ContactName}'s phone number? Ex.[(123)-456-7890]");
