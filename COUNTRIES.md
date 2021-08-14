@@ -2,7 +2,7 @@
 
 ## Countries List
 
-This is a list of the _196_ countries that **Hop-Ip Beats** currently supports, listed in alphabetical order. To find the country you are looking for, Click the drop-down of the letter that your country starts with.
+This is a list of the `196` countries that **Hop-Ip Beats** currently supports, listed in alphabetical order. To find the country you are looking for, Click the drop-down of the letter that your country starts with.
 
 Example:
 
