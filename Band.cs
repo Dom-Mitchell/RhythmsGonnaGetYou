@@ -44,7 +44,7 @@ namespace RhythmsGonnaGetYou
             "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", "State of Palestine",
             "Sudan", "Suriname", "Swedan", "Switzerland", "Syria", "Tajikistan", "Tanzania", "Thailand", "The Bahamas", "The Gambia", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey",
             "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam",
-            "Yemen", "Zambia", "Zimbabwe"};
+            "Yemen", "Zambia", "Zimbabwe" };
 
             Console.WriteLine("\nWhat is the band's name?");
             newBand.Name = Console.ReadLine();
@@ -66,7 +66,7 @@ namespace RhythmsGonnaGetYou
                 {
                     Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
                     Console.WriteLine($"{"We currently support".Pastel(Color.Red)} {$"{countries.Count()}".Pastel(Color.LimeGreen)} {"different countries!".Pastel(Color.Red)}");
-                    Console.WriteLine($"{"Please see".Pastel(Color.Red)} {"https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_area".Pastel(Color.FromArgb(51, 102, 187))}{" for a list of supported countries!".Pastel(Color.Red)}");
+                    Console.WriteLine($"{"Please see".Pastel(Color.Red)} {"https://github.com/Domanator13/RhythmsGonnaGetYou/blob/trunk/COUNTRIES.md".Pastel(Color.FromArgb(51, 102, 187))}{" for a list of supported countries!".Pastel(Color.Red)}");
                     Console.WriteLine($"{"Press".Pastel(Color.Red)} {"Ctrl".Pastel(Color.Yellow)} {"and".Pastel(Color.Red)} {"Click".Pastel(Color.Yellow)} {"the above link to view the website!".Pastel(Color.Red)}");
 
                 }
