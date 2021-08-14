@@ -42,7 +42,7 @@ namespace RhythmsGonnaGetYou
             "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam",
             "Yemen", "Zambia", "Zimbabwe" };
 
-            // Genre list from 
+            // Genre list from https://github.com/Domanator13/RhythmsGonnaGetYou/blob/trunk/MUSICALGENRES.md
             var musicGenres = new List<string>() {"Acoustic", "Blues", "Classical", "Country", "Dance", "Easy Listening", "EDM", "Electronic Dance Music", "Folk", "Hip-hop", "Jazz", "Latin",
             "Metal", "New Age", "Pop", "R & B", "Rap", "Rock", "Traditional Folk", "World"};
 
@@ -119,7 +119,7 @@ namespace RhythmsGonnaGetYou
                 {
                     Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
                     Console.WriteLine($"{"We currently support".Pastel(Color.Red)} {$"{musicGenres.Count()}".Pastel(Color.LimeGreen)} {"different styles!".Pastel(Color.Red)}");
-                    Console.WriteLine($"{"Please see".Pastel(Color.Red)} {"https://github.com/Domanator13/RhythmsGonnaGetYou/blob/trunk/COUNTRIES.md".Pastel(Color.FromArgb(51, 102, 187))}{" for a list of supported countries!".Pastel(Color.Red)}");
+                    Console.WriteLine($"{"Please see".Pastel(Color.Red)} {"https://github.com/Domanator13/RhythmsGonnaGetYou/blob/trunk/MUSICALGENRES.md".Pastel(Color.FromArgb(51, 102, 187))}{" for a list of supported countries!".Pastel(Color.Red)}");
                     Console.WriteLine($"{"Press".Pastel(Color.Red)} {"Ctrl".Pastel(Color.Yellow)} {"and".Pastel(Color.Red)} {"Click".Pastel(Color.Yellow)} {"the above link to view the website!".Pastel(Color.Red)}");
                 }
 
