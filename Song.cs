@@ -8,6 +8,6 @@ namespace RhythmsGonnaGetYou
         public int TrackNumber { get; set; }
         public string Title { get; set; }
         public TimeSpan Duration { get; set; }
-        
+
     }
 }
