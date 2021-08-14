@@ -6,9 +6,9 @@ This is a list of the _196_ countries that **Hop-Ip Beats** currently supports, 
 
 Example:
 
-<!-- ![image of Finding Bahamas](./example.gif) -->
+![image of Finding Bahamas](./example.gif)
 
-To find, The Bahamas, click **T**, from the drop-downs below, there you will see The Bahamas listed or look at the .gif above!
+To find, The Bahamas, click **T** from the drop-downs below, there you will see The Bahamas listed or look at the animated gif above!
 
 Please Note: All countries **MUST** be typed as they are listed in the drop-downs below. If not then it will give you an error message and re-prompt you.
 
