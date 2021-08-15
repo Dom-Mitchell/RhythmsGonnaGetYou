@@ -13,7 +13,7 @@ pgcli RecordsDatabase
 CREATE TABLE "Albums" ("Id" SERIAL PRIMARY KEY, "Title" TEXT, "IsExplicit" BOOLEAN, "ReleaseDate" DATE);
 
 -- Step 4
-CREATE TABLE "Bands" ("Id" SERIAL PRIMARY KEY, "Name" TEXT, "CountryOfOrigin" TEXT, "NumberOfMembers" INTEGER, "Website" TEXT, "Style" TEXT, "IsSigned" BOOLEAN, "ContactName" TEXT, "ContactPhoneNumber" VARCHAR(12));
+CREATE TABLE "Bands" ("Id" SERIAL PRIMARY KEY, "Name" TEXT, "CountryOfOrigin" TEXT, "NumberOfMembers" INTEGER, "Website" TEXT, "Style" TEXT, "IsSigned" BOOLEAN, "ContactName" TEXT, "ContactPhoneNumber" VARCHAR(26));
 
 -- Step 5
 CREATE TABLE "Songs" ("Id" SERIAL PRIMARY KEY, "TrackNumber" INT, "Title" TEXT, "Duration" TIME,);

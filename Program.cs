@@ -52,6 +52,7 @@ namespace RhythmsGonnaGetYou
                         break;
                     case "V":
                         // Console.Clear();
+                        newBand.ExistingBand();
                         PressAnyKey("\nPress Any Key to Continue! ");
                         keepGoing = false;
                         break;
@@ -91,7 +92,7 @@ namespace RhythmsGonnaGetYou
 
             }
 
-            var keepPrompting = true;
+            var keepPrompting = false;
 
             Console.Clear();
             DisplayGreeting();

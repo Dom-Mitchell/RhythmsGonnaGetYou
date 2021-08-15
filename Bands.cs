@@ -10,24 +10,26 @@ namespace RhythmsGonnaGetYou
     public class Bands
     {
         public int Id { get; set; }
-
         public string Name { get; set; }
         public string CountryOfOrigin { get; set; }
+        public int NumberOfMembers { get; set; }
         public string Website { get; set; }
         public string Style { get; set; }
         public bool IsSigned { get; set; }
         public string ContactName { get; set; }
         public string ContactPhoneNumber { get; set; }
 
+        public List<Albums> Albums { get; set; }
+
         private RecordLabelContext context = new RecordLabelContext();
-        public Bands newBand = new Bands();
+
 
         // public Band SingularBand = new Band();
         public bool BandExists = false;
 
         public void CreateBand()
         {
-
+            var newBand = new Bands();
 
             // Country list from https://github.com/Domanator13/RhythmsGonnaGetYou/blob/trunk/COUNTRIES.md
             var countries = new List<string>() { "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
@@ -93,6 +95,27 @@ namespace RhythmsGonnaGetYou
                     Console.WriteLine($"{"We currently support".Pastel(Color.Red)} {$"{countries.Count()}".Pastel(Color.LimeGreen)} {"different countries!".Pastel(Color.Red)}");
                     Console.WriteLine($"{"Please see".Pastel(Color.Red)} {"https://github.com/Domanator13/RhythmsGonnaGetYou/blob/trunk/COUNTRIES.md".Pastel(Color.FromArgb(51, 102, 187))}{" for a list of supported countries!".Pastel(Color.Red)}");
                     Console.WriteLine($"{"Press".Pastel(Color.Red)} {"Ctrl".Pastel(Color.Yellow)} {"and".Pastel(Color.Red)} {"Click".Pastel(Color.Yellow)} {"the above link to view the website!".Pastel(Color.Red)}");
+                }
+            }
+
+            var correcMemberNumber = false;
+            var usersMembers = 0;
+            while (!correcMemberNumber)
+            {
+                Console.WriteLine($"\nHow many people are in {newBand.Name}?");
+                // usersMembers = Console.ReadLine();
+
+                var isThisGoodInput = Int32.TryParse(Console.ReadLine(), out usersMembers);
+
+                if (usersMembers > 0 && isThisGoodInput)
+                {
+                    newBand.NumberOfMembers = usersMembers;
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
+                    Console.WriteLine($"{"Your band must have at least".Pastel(Color.Red)} {"1".Pastel(Color.Yellow)} {"member".Pastel(Color.Red)}");
                 }
             }
 
@@ -219,11 +242,12 @@ namespace RhythmsGonnaGetYou
                     Console.WriteLine($"{"\nIncorrect phone number. Please try again!".Pastel(Color.Red)}");
                     Console.WriteLine($"{"Your choice must 10 characters long".Pastel(Color.Red)}");
                 }
-                context.Bands.Add(newBand);
-                context.SaveChanges();
+
             }
 
             // SingularBand.Name =
+            context.Bands.Add(newBand);
+            context.SaveChanges();
 
         }
 
@@ -231,12 +255,15 @@ namespace RhythmsGonnaGetYou
         {
             // var context = new RecordLabelContext();
             var existingUserBand = "";
+            var newBand = new Bands();
 
-            Console.WriteLine("\nPlease enter your band name ");
-            existingUserBand = Console.ReadLine();
+
 
             while (!BandExists)
             {
+                Console.WriteLine("\nPlease enter your band name ");
+                existingUserBand = Console.ReadLine();
+
                 if (context.Bands.Any(user => newBand.Name == existingUserBand))
                 {
                     Console.Write($"{"Band found!".Pastel(Color.LimeGreen)}\n");
