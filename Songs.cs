@@ -10,7 +10,7 @@ namespace RhythmsGonnaGetYou
         public TimeSpan Duration { get; set; }
         public int AlbumId { get; set; }
 
-        public Albums Album { get; set; }
+        // public Albums Album { get; set; }
 
     }
 }

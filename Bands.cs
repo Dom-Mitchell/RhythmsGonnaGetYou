@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using Pastel;
+using RhythmsGonnaGetYou.bin;
 
 namespace RhythmsGonnaGetYou
 {
@@ -22,6 +23,13 @@ namespace RhythmsGonnaGetYou
         public List<Albums> Albums { get; set; }
 
         private RecordLabelContext context = new RecordLabelContext();
+
+        // public void Description()
+        // {
+        //     Console.WriteLine($"Band Name: {Name}\nCountry of Origin: {CountryOfOrigin}\nWebsite: {Website}\nStyle: {Style}\nSigned to Record Label: {IsSigned}\nContact Name: {ContactName}\nContact Phone Number: {ContactPhoneNumber}");
+        //     // Console.WriteLine($"");
+        //     // Console.WriteLine($"");
+        // }
 
 
         // public Band SingularBand = new Band();
@@ -61,13 +69,20 @@ namespace RhythmsGonnaGetYou
 
                 if (usersBand != "")
                 {
-                    if (context.Bands.Any(user => newBand.Name == usersBand))
+                    // context.Bands.Any(user => newBand.Name == usersBand)
+                    // context.Bands.Contains(usersBand)
+                    if (context.Bands.Any(band => band.Name == usersBand))
                     {
                         Console.WriteLine($"{"That band name is taken. Please Try again!".Pastel(Color.Yellow)}");
                         continue;
                     }
                     newBand.Name = usersBand;
                     break;
+                    // else
+                    // {
+                    //     // Console.WriteLine($"Test");
+
+                    // }
                 }
                 else
                 {
@@ -257,14 +272,12 @@ namespace RhythmsGonnaGetYou
             var existingUserBand = "";
             var newBand = new Bands();
 
-
-
             while (!BandExists)
             {
                 Console.WriteLine("\nPlease enter your band name ");
                 existingUserBand = Console.ReadLine();
 
-                if (context.Bands.Any(user => newBand.Name == existingUserBand))
+                if (context.Bands.Any(band => band.Name == existingUserBand))
                 {
                     Console.Write($"{"Band found!".Pastel(Color.LimeGreen)}\n");
                     break;
