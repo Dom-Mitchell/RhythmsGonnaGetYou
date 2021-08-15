@@ -7,9 +7,10 @@ using Pastel;
 
 namespace RhythmsGonnaGetYou
 {
-    public class Band
+    public class Bands
     {
         public int Id { get; set; }
+
         public string Name { get; set; }
         public string CountryOfOrigin { get; set; }
         public string Website { get; set; }
@@ -18,12 +19,15 @@ namespace RhythmsGonnaGetYou
         public string ContactName { get; set; }
         public string ContactPhoneNumber { get; set; }
 
+        private RecordLabelContext context = new RecordLabelContext();
+        public Bands newBand = new Bands();
+
+        // public Band SingularBand = new Band();
         public bool BandExists = false;
 
         public void CreateBand()
         {
-            var context = new RecordLabelContext();
-            var newBand = new Band();
+
 
             // Country list from https://github.com/Domanator13/RhythmsGonnaGetYou/blob/trunk/COUNTRIES.md
             var countries = new List<string>() { "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
@@ -47,13 +51,19 @@ namespace RhythmsGonnaGetYou
             "Metal", "New Age", "Pop", "R & B", "Rap", "Rock", "Traditional Folk", "World"};
 
             var userTypedName = false;
+            var usersBand = "";
             while (!userTypedName)
             {
                 Console.WriteLine("\nWhat is the band's name?");
-                var usersBand = Console.ReadLine();
+                usersBand = Console.ReadLine();
 
                 if (usersBand != "")
                 {
+                    if (context.Bands.Any(user => newBand.Name == usersBand))
+                    {
+                        Console.WriteLine($"{"That band name is taken. Please Try again!".Pastel(Color.Yellow)}");
+                        continue;
+                    }
                     newBand.Name = usersBand;
                     break;
                 }
@@ -65,10 +75,11 @@ namespace RhythmsGonnaGetYou
             }
 
             var realCountry = false;
+            var country = "";
             while (!realCountry)
             {
-                Console.WriteLine($"\nWhere is {newBand.Name} from?");
-                var country = Console.ReadLine();
+                Console.WriteLine($"\nWhat country is {newBand.Name} from?");
+                country = Console.ReadLine();
 
                 if (countries.Contains(country))
                 {
@@ -86,12 +97,13 @@ namespace RhythmsGonnaGetYou
             }
 
             var correctWebsiteFormat = false;
+            var usersWebsite = "";
             while (!correctWebsiteFormat)
             {
                 Console.WriteLine($"\nWhat is {newBand.Name}'s website?");
-                var usersWebsite = Console.ReadLine();
+                usersWebsite = Console.ReadLine();
 
-                if (usersWebsite.Contains(".com"))
+                if (usersWebsite.Contains(".com") && !usersWebsite.Contains(" ") && usersWebsite.Length > 4)
                 {
                     newBand.Website = usersWebsite;
                     break;
@@ -104,10 +116,11 @@ namespace RhythmsGonnaGetYou
             }
 
             var realGenre = false;
+            var genre = "";
             while (!realGenre)
             {
                 Console.WriteLine($"\nWhat style of music does {newBand.Name} do?");
-                var genre = Console.ReadLine();
+                genre = Console.ReadLine();
 
                 if (musicGenres.Contains(genre))
                 {
@@ -126,10 +139,11 @@ namespace RhythmsGonnaGetYou
             }
 
             var correctAnswer = false;
+            var signed = "";
             while (!correctAnswer)
             {
                 Console.WriteLine($"\nIs {newBand.Name} signed? (Yes/No)");
-                var signed = Console.ReadLine().ToUpper();
+                signed = Console.ReadLine().ToUpper();
 
                 if (signed == "Y" || signed == "YES")
                 {
@@ -152,10 +166,11 @@ namespace RhythmsGonnaGetYou
             newBand.ContactName = Console.ReadLine();
 
             var correctPhoneLength = false;
+            var phoneNumber = "";
             while (!correctPhoneLength)
             {
                 Console.WriteLine($"\nWhat is {newBand.ContactName}'s phone number? Ex.[(123)-456-7890]");
-                var phoneNumber = Console.ReadLine();
+                phoneNumber = Console.ReadLine();
 
                 // StringBuilder formattedPhoneNumber = new StringBuilder();
                 // while (true)
@@ -184,24 +199,55 @@ namespace RhythmsGonnaGetYou
 
                 if (phoneNumber.Length == 10)
                 {
-                    var formattedPhoneNumber = String.Format("{0:(###)-###-####}", "1" + phoneNumber);
-                    newBand.ContactPhoneNumber = formattedPhoneNumber;
+                    var isThisGoodInput = phoneNumber.Any(x => !char.IsLetter(x));
+                    if (isThisGoodInput)
+                    {
+                        var formattedPhoneNumber = String.Format("{0:+1(###)-###-####}", Int64.Parse(phoneNumber));
+                        newBand.ContactPhoneNumber = formattedPhoneNumber;
 
-                    Console.WriteLine(formattedPhoneNumber);
-                    break;
+                        Console.WriteLine(formattedPhoneNumber);
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{"\nIncorrect phone number. Please try again!".Pastel(Color.Red)}");
+                        Console.WriteLine($"{"Your choice must 10 numbers long".Pastel(Color.Red)}");
+                    }
                 }
                 else
                 {
                     Console.WriteLine($"{"\nIncorrect phone number. Please try again!".Pastel(Color.Red)}");
                     Console.WriteLine($"{"Your choice must 10 characters long".Pastel(Color.Red)}");
                 }
+                context.Bands.Add(newBand);
+                context.SaveChanges();
             }
 
+            // SingularBand.Name =
 
         }
 
         public void ExistingBand()
         {
+            // var context = new RecordLabelContext();
+            var existingUserBand = "";
+
+            Console.WriteLine("\nPlease enter your band name ");
+            existingUserBand = Console.ReadLine();
+
+            while (!BandExists)
+            {
+                if (context.Bands.Any(user => newBand.Name == existingUserBand))
+                {
+                    Console.Write($"{"Band found!".Pastel(Color.LimeGreen)}\n");
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine($"{"Incorrect band name. Please try again!".Pastel(Color.Red)}");
+                }
+            }
+            BandExists = true;
 
         }
 

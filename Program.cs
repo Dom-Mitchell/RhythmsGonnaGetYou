@@ -35,7 +35,7 @@ namespace RhythmsGonnaGetYou
             Console.Clear();
             DisplayGreeting();
 
-            var newBand = new Band();
+            var newBand = new Bands();
 
             while (keepGoing && !newBand.BandExists)
             {

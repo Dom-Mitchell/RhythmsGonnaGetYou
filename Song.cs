@@ -2,7 +2,7 @@ using System;
 
 namespace RhythmsGonnaGetYou
 {
-    public class Song
+    public class Songs
     {
         public int Id { get; set; }
         public int TrackNumber { get; set; }
