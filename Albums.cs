@@ -14,5 +14,7 @@ namespace RhythmsGonnaGetYou.bin
         public Bands Band { get; set; }
         public List<Songs> Songs { get; set; }
 
+        
+
     }
 }

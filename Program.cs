@@ -53,6 +53,8 @@ namespace RhythmsGonnaGetYou
                         // Console.Clear();
                         newBand.CreateBand();
                         PressAnyKey("\nPress Any Key to Continue! ");
+                        Console.Clear();
+                        DisplayGreeting();
                         // keepGoing = false;
                         break;
                     case "V":
@@ -67,6 +69,8 @@ namespace RhythmsGonnaGetYou
                         ListBands(context);
 
                         PressAnyKey("\nPress Any Key to Continue! ");
+                        Console.Clear();
+                        DisplayGreeting();
                         // keepGoing = false;
                         break;
                     case "R":
@@ -229,7 +233,7 @@ namespace RhythmsGonnaGetYou
             var usersBand = "";
             while (!userTypedName)
             {
-                Console.WriteLine("\nWhat band would you like to welcome back? ");
+                Console.WriteLine($"\nWhat band would you like to welcome back?\nNote: This means {"Hop".Pastel(Color.SeaGreen)}{"-".Pastel(Color.Violet)}{"Ip".Pastel(Color.LightSkyBlue)} {"Beats".Pastel(Color.MediumVioletRed)} will support the selected band again!\n");
                 usersBand = Console.ReadLine();
 
                 var isThisGoodInput = usersBand.Any(x => !char.IsNumber(x));
@@ -261,7 +265,7 @@ namespace RhythmsGonnaGetYou
         private static void UnsignedBands(RecordLabelContext context)
         {
             var unsignedBands = context.Bands.Where(band => band.IsSigned == false);
-            Console.WriteLine($"\nUnsigned Bands: \n");
+            Console.WriteLine($"\nBands not signed by {"Hop".Pastel(Color.SeaGreen)}{"-".Pastel(Color.Violet)}{"Ip".Pastel(Color.LightSkyBlue)} {"Beats".Pastel(Color.MediumVioletRed)}: \n");
 
             foreach (var band in unsignedBands)
             {
@@ -272,7 +276,7 @@ namespace RhythmsGonnaGetYou
         private static void SignedBands(RecordLabelContext context)
         {
             var signedBands = context.Bands.Where(band => band.IsSigned == true);
-            Console.WriteLine($"\nSigned Bands: \n");
+            Console.WriteLine($"\nBands signed by {"Hop".Pastel(Color.SeaGreen)}{"-".Pastel(Color.Violet)}{"Ip".Pastel(Color.LightSkyBlue)} {"Beats".Pastel(Color.MediumVioletRed)}: \n");
 
             foreach (var band in signedBands)
             {
@@ -286,7 +290,7 @@ namespace RhythmsGonnaGetYou
             var usersBand = "";
             while (!userTypedName)
             {
-                Console.WriteLine("\nWhat band would you like to let go? ");
+                Console.WriteLine($"\nWhat band would you like to let go?\nNote: This means {"Hop".Pastel(Color.SeaGreen)}{"-".Pastel(Color.Violet)}{"Ip".Pastel(Color.LightSkyBlue)} {"Beats".Pastel(Color.MediumVioletRed)} will no longer support the selected band!");
                 usersBand = Console.ReadLine();
 
                 var isThisGoodInput = usersBand.Any(x => !char.IsNumber(x));
@@ -318,7 +322,7 @@ namespace RhythmsGonnaGetYou
         private static void ListBands(RecordLabelContext context)
         {
             var bandNames = context.Bands;
-            Console.WriteLine();
+            Console.WriteLine($"\nBands Signed by {"Hop".Pastel(Color.SeaGreen)}{"-".Pastel(Color.Violet)}{"Ip".Pastel(Color.LightSkyBlue)} {"Beats".Pastel(Color.MediumVioletRed)}!");
 
             foreach (var band in bandNames)
             {
