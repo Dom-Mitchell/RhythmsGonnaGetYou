@@ -261,7 +261,7 @@ namespace RhythmsGonnaGetYou
             }
 
             // SingularBand.Name =
-            context.Bands.Add(newBand);
+            // context.Bands.Add(newBand);
             context.SaveChanges();
 
         }

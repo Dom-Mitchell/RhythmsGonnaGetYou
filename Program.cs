@@ -32,13 +32,15 @@ namespace RhythmsGonnaGetYou
 
         static void Main(string[] args)
         {
+            // RecordLabelContext.Bands = MainMenu();
+
+            var newBand = new Bands();
+            var context = new RecordLabelContext();
+
             var keepGoing = true;
 
             Console.Clear();
             DisplayGreeting();
-
-            var newBand = new Bands();
-            var context = new RecordLabelContext();
 
             while (keepGoing && !newBand.BandExists)
             {
@@ -51,66 +53,51 @@ namespace RhythmsGonnaGetYou
                         // Console.Clear();
                         newBand.CreateBand();
                         PressAnyKey("\nPress Any Key to Continue! ");
-                        keepGoing = false;
+                        // keepGoing = false;
                         break;
                     case "V":
                         // Console.Clear();
                         newBand.ExistingBand();
                         PressAnyKey("\nPress Any Key to Continue! ");
-                        keepGoing = false;
+                        // keepGoing = false;
                         break;
                     case "L":
                         // Console.Clear();
 
-                        var bandNames = context.Bands;
-                        Console.WriteLine();
-
-                        foreach (var band in bandNames)
-                        {
-                            Console.WriteLine($"There is a band named {band.Name}");
-                        }
+                        ListBands(context);
 
                         PressAnyKey("\nPress Any Key to Continue! ");
-                        keepGoing = false;
+                        // keepGoing = false;
                         break;
                     case "R":
                         // Console.Clear();
 
-                        Console.WriteLine("What band would you like to let go? ");
-                        var whatBand = Console.ReadLine();
-                        var letGoOfBand = context.Bands.FirstOrDefault(band => band.Name == whatBand);
-                        letGoOfBand.IsSigned = false;
+                        RemoveBand(context);
 
                         PressAnyKey("\nPress Any Key to Continue! ");
-                        keepGoing = false;
+                        Console.Clear();
+                        DisplayGreeting();
+                        // keepGoing = false;
                         break;
                     case "S":
                         // Console.Clear();
 
-                        var signedBands = context.Bands.Where(band => band.IsSigned == true);
-                        Console.WriteLine();
-
-                        foreach (var band in signedBands)
-                        {
-                            Console.WriteLine($"{band.Name} is a signed band");
-                        }
+                        SignedBands(context);
 
                         PressAnyKey("\nPress Any Key to Continue! ");
-                        keepGoing = false;
+                        Console.Clear();
+                        DisplayGreeting();
+                        // keepGoing = false;
                         break;
                     case "U":
                         // Console.Clear();
 
-                        var unsignedBands = context.Bands.Where(band => band.IsSigned == false);
-                        Console.WriteLine();
-
-                        foreach (var band in unsignedBands)
-                        {
-                            Console.WriteLine($"{band.Name} is an unsigned band");
-                        }
+                        UnsignedBands(context);
 
                         PressAnyKey("\nPress Any Key to Continue! ");
-                        keepGoing = false;
+                        Console.Clear();
+                        DisplayGreeting();
+                        // keepGoing = false;
                         break;
                     case "Q":
                         // Console.Clear();
@@ -128,18 +115,18 @@ namespace RhythmsGonnaGetYou
 
             }
 
-            var keepPrompting = true;
+            var promptAgain = true;
 
             Console.Clear();
             DisplayGreeting();
 
-            while (keepPrompting)
+            while (promptAgain)
             {
 
                 if (newBand.BandExists)
                 {
 
-                    Console.Write("\nWhat do you want to do?\n(V)iew all Albums\n(N)ew Album\n(E)dit Album\n(R)esign Band\n(L)ist Albums by Release Date\n(M)ain Menu\n(Q)uit\n: ");
+                    Console.Write($"\nWelcome, {newBand.Name}!\n\nWhat do you want to do?\n(V)iew all Albums\n(N)ew Album\n(E)dit Album\n(R)esign Band\n(L)ist Albums by Release Date\n(M)ain Menu\n(Q)uit\n: ");
                     var choices = Console.ReadLine().ToUpper();
 
                     switch (choices)
@@ -161,8 +148,37 @@ namespace RhythmsGonnaGetYou
                             break;
                         case "R":
                             // Console.Clear();
+
+                            var correctAnswer = false;
+                            var signed = "";
+                            while (!correctAnswer)
+                            {
+                                Console.WriteLine($"Are you sure you want to resign {newBand.Name}? ");
+                                signed = Console.ReadLine().ToUpper();
+
+                                if (signed == "Y" || signed == "YES")
+                                {
+                                    newBand.IsSigned = true;
+                                    Console.WriteLine($"\n{"{usersBand} had been reactivated within the studio!".Pastel(Color.Yellow)}");
+                                    context.SaveChanges();
+                                    break;
+                                }
+                                else if (signed == "N" || signed == "NO")
+                                {
+                                    newBand.IsSigned = false;
+                                    Console.WriteLine($"\n{"{usersBand} had not been resigned to the studio!".Pastel(Color.Yellow)}");
+                                    context.SaveChanges();
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
+                                    Console.WriteLine($"{"Your choice must be".Pastel(Color.Red)} {"Yes".Pastel(Color.Yellow)} {"or".Pastel(Color.Red)} {"No".Pastel(Color.Yellow)}{"!".Pastel(Color.Red)}");
+                                }
+                            }
+
                             PressAnyKey("\nPress Any Key to Continue! ");
-                            keepGoing = false;
+                            // keepGoing = false;
                             break;
                         case "L":
                             // Console.Clear();
@@ -194,6 +210,74 @@ namespace RhythmsGonnaGetYou
 
             }
 
+        }
+
+        private static void UnsignedBands(RecordLabelContext context)
+        {
+            var unsignedBands = context.Bands.Where(band => band.IsSigned == false);
+            Console.WriteLine($"\nUnsigned Bands: \n");
+
+            foreach (var band in unsignedBands)
+            {
+                Console.WriteLine($"{band.Name} is an unsigned band");
+            }
+        }
+
+        private static void SignedBands(RecordLabelContext context)
+        {
+            var signedBands = context.Bands.Where(band => band.IsSigned == true);
+            Console.WriteLine($"\nSigned Bands: \n");
+
+            foreach (var band in signedBands)
+            {
+                Console.WriteLine($"{band.Name} is a signed band");
+            }
+        }
+
+        private static void RemoveBand(RecordLabelContext context)
+        {
+            var userTypedName = false;
+            var usersBand = "";
+            while (!userTypedName)
+            {
+                Console.WriteLine("\nWhat band would you like to let go? ");
+                usersBand = Console.ReadLine();
+
+                var isThisGoodInput = usersBand.Any(x => !char.IsNumber(x));
+                if (isThisGoodInput)
+                {
+                    var bandExists = context.Bands.Any(band => band.Name == usersBand);
+                    if (bandExists)
+                    {
+                        var letGoOfBand = context.Bands.FirstOrDefault(band => band.Name == usersBand);
+                        letGoOfBand.IsSigned = false;
+                        Console.WriteLine($"\n{"{usersBand} was removed from studio!".Pastel(Color.Yellow)}");
+                        context.SaveChanges();
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
+                        Console.WriteLine($"{"Your choice must be an existing band".Pastel(Color.Red)}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
+                    Console.WriteLine($"{"Your choice must be an existing band".Pastel(Color.Red)}");
+                }
+            }
+        }
+
+        private static void ListBands(RecordLabelContext context)
+        {
+            var bandNames = context.Bands;
+            Console.WriteLine();
+
+            foreach (var band in bandNames)
+            {
+                Console.WriteLine($"There is a band named {band.Name}");
+            }
         }
     }
 }
