@@ -56,6 +56,8 @@ namespace RhythmsGonnaGetYou
             "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam",
             "Yemen", "Zambia", "Zimbabwe" };
 
+            var prohibitedCharacters = new List<string>() { "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", ";", ":", ",", "?", "/", @"\", "=", "+", "<", ">", " ", "_" };
+
             // Genre list from https://github.com/Domanator13/RhythmsGonnaGetYou/blob/trunk/MUSICALGENRES.md
             var musicGenres = new List<string>() {"Acoustic", "Blues", "Classical", "Country", "Dance", "Easy Listening", "EDM", "Electronic Dance Music", "Folk", "Hip-hop", "Jazz", "Latin",
             "Metal", "New Age", "Pop", "R & B", "Rap", "Rock", "Traditional Folk", "World"};
@@ -122,15 +124,16 @@ namespace RhythmsGonnaGetYou
 
                 var isThisGoodInput = Int32.TryParse(Console.ReadLine(), out usersMembers);
 
-                if (usersMembers > 0 && isThisGoodInput)
+                if (usersMembers > 0 && usersMembers <= 10 && isThisGoodInput)
                 {
                     newBand.NumberOfMembers = usersMembers;
+                    Console.WriteLine($"\n{newBand.Name} has {newBand.NumberOfMembers} members in the band");
                     break;
                 }
                 else
                 {
                     Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
-                    Console.WriteLine($"{"Your band must have at least".Pastel(Color.Red)} {"1".Pastel(Color.Yellow)} {"member".Pastel(Color.Red)}");
+                    Console.WriteLine($"{"Your band must have at least".Pastel(Color.Red)} {"1".Pastel(Color.Yellow)} {"member and no more than".Pastel(Color.Red)} {"10".Pastel(Color.Yellow)} {"members".Pastel(Color.Red)}");
                 }
             }
 
@@ -139,9 +142,9 @@ namespace RhythmsGonnaGetYou
             while (!correctWebsiteFormat)
             {
                 Console.WriteLine($"\nWhat is {newBand.Name}'s website?");
-                usersWebsite = Console.ReadLine();
+                usersWebsite = Console.ReadLine().ToLower();
 
-                if (usersWebsite.Contains(".com") && !usersWebsite.Contains(" ") && usersWebsite.Length > 4)
+                if (usersWebsite.Contains(".com") && prohibitedCharacters.Contains(usersWebsite) && usersWebsite.Length <= 75)
                 {
                     newBand.Website = usersWebsite;
                     break;
@@ -149,7 +152,9 @@ namespace RhythmsGonnaGetYou
                 else
                 {
                     Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
-                    Console.WriteLine($"{"Your website must contain a".Pastel(Color.Red)} {".com".Pastel(Color.Yellow)} {"ending!".Pastel(Color.Red)}");
+                    Console.WriteLine($"{"Your website must contain a".Pastel(Color.Red)} {".com".Pastel(Color.Yellow)} {"or similar ending!".Pastel(Color.Red)}");
+                    Console.WriteLine($"{"Please see".Pastel(Color.Red)} {"https://github.com/Domanator13/RhythmsGonnaGetYou/blob/trunk/COUNTRIES.md".Pastel(Color.FromArgb(51, 102, 187))}{" for a list of supported . endings and prohibited website characters!".Pastel(Color.Red)}");
+                    Console.WriteLine($"{"Press".Pastel(Color.Red)} {"Ctrl".Pastel(Color.Yellow)} {"and".Pastel(Color.Red)} {"Click".Pastel(Color.Yellow)} {"the above link to view the website!".Pastel(Color.Red)}");
                 }
             }
 
@@ -249,6 +254,7 @@ namespace RhythmsGonnaGetYou
                     else
                     {
                         Console.WriteLine($"{"\nIncorrect phone number. Please try again!".Pastel(Color.Red)}");
+                        Console.WriteLine($"{"We currently only support".Pastel(Color.Red)} {$"US Phone Numbers".Pastel(Color.LimeGreen)} {"!\nMore to come at a later time!".Pastel(Color.Red)}");
                         Console.WriteLine($"{"Your choice must 10 numbers long".Pastel(Color.Red)}");
                     }
                 }
@@ -266,30 +272,30 @@ namespace RhythmsGonnaGetYou
 
         }
 
-        public void ExistingBand()
-        {
-            // var context = new RecordLabelContext();
-            var existingUserBand = "";
-            var newBand = new Bands();
+        // public void ExistingBand()
+        // {
+        //     // var context = new RecordLabelContext();
+        //     var existingUserBand = "";
+        //     var newBand = new Bands();
 
-            while (!BandExists)
-            {
-                Console.WriteLine("\nPlease enter your band name ");
-                existingUserBand = Console.ReadLine();
+        //     while (!BandExists)
+        //     {
+        //         Console.WriteLine("\nPlease enter your band name ");
+        //         existingUserBand = Console.ReadLine();
 
-                if (context.Bands.Any(band => band.Name == existingUserBand))
-                {
-                    Console.Write($"{"Band found!".Pastel(Color.LimeGreen)}\n");
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine($"{"Incorrect band name. Please try again!".Pastel(Color.Red)}");
-                }
-            }
-            BandExists = true;
+        //         if (context.Bands.Any(band => band.Name == existingUserBand))
+        //         {
+        //             Console.Write($"{"Band found!".Pastel(Color.LimeGreen)}\n");
+        //             break;
+        //         }
+        //         else
+        //         {
+        //             Console.WriteLine($"{"Incorrect band name. Please try again!".Pastel(Color.Red)}");
+        //         }
+        //     }
+        //     BandExists = true;
 
-        }
+        // }
 
     }
 }

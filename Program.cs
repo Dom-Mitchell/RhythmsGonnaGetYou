@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Pastel;
+using RhythmsGonnaGetYou.bin;
 
 namespace RhythmsGonnaGetYou
 {
@@ -35,6 +36,8 @@ namespace RhythmsGonnaGetYou
             // RecordLabelContext.Bands = MainMenu();
 
             var newBand = new Bands();
+            var newAlbum = new Albums();
+            var newSong = new Songs();
             var context = new RecordLabelContext();
 
             var keepGoing = true;
@@ -42,9 +45,20 @@ namespace RhythmsGonnaGetYou
             Console.Clear();
             DisplayGreeting();
 
-            while (keepGoing && !newBand.BandExists)
+            Console.WriteLine("\nWhat is your name?");
+            var name = Console.ReadLine();
+            Console.WriteLine($"\nHope you are doing well today, {name}!");
+            PressAnyKey("\nPress Any Key to Continue! ");
+
+            Console.Clear();
+            DisplayGreeting();
+
+            // var choices = "";
+            var mangagerView = false;
+
+            while (keepGoing && !mangagerView)
             {
-                Console.Write("\nWhat do you want to do?\n(C)reate Band\n(V)iew band\n(L)ist all Bands\n(R)emove Band\n(W)elcome Band Back\n(S)igned Bands\n(U)nsigned Bands\n(Q)uit\n: ");
+                Console.Write("\nWhat do you want to do?\n(C)reate Band\n(V)iew Bands (Manager View)\n(L)ist all Bands\n(R)emove Band\n(W)elcome Band Back\n(S)igned Bands\n(U)nsigned Bands\n(Q)uit\n: ");
                 var choices = Console.ReadLine().ToUpper();
 
                 switch (choices)
@@ -59,8 +73,13 @@ namespace RhythmsGonnaGetYou
                         break;
                     case "V":
                         // Console.Clear();
-                        newBand.ExistingBand();
+                        // newBand.ExistingBand();
+
+                        mangagerView = EditExistingBands(mangagerView, name);
+
                         PressAnyKey("\nPress Any Key to Continue! ");
+                        Console.Clear();
+                        DisplayGreeting();
                         // keepGoing = false;
                         break;
                     case "L":
@@ -137,28 +156,73 @@ namespace RhythmsGonnaGetYou
             while (promptAgain)
             {
 
-                if (newBand.BandExists)
+                if (mangagerView)
                 {
 
-                    Console.Write($"\nWelcome, {newBand.Name}!\n\nWhat do you want to do?\n(V)iew all Albums\n(N)ew Album\n(E)dit Album\n(L)ist Albums by Release Date\n(M)ain Menu\n(Q)uit\n: ");
+                    Console.Write($"\nWelcome to {"Hop".Pastel(Color.SeaGreen)}{"-".Pastel(Color.Violet)}{"Ip".Pastel(Color.LightSkyBlue)} {"Beats".Pastel(Color.MediumVioletRed)} manager view, {name}!\n\nWhat do you want to do?\n(V)iew all Albums in Band\n(A)dd New Album to Band\n(E)dit Album in Band\n(L)ist Albums by Release Date for Band\n(M)ain Menu\n(Q)uit\n: ");
                     var choices = Console.ReadLine().ToUpper();
 
                     switch (choices)
                     {
                         case "V":
                             // Console.Clear();
+
+                            // var userTypedName = false;
+                            // //  usersBand = "";
+                            // while (!userTypedName)
+                            // {
+                            //     Console.WriteLine($"\nWhich band's albums would you like to view?");
+                            //     var usersBand = Console.ReadLine();
+
+                            //     var bandExists = context.Bands.Any(band => band.Name == usersBand);
+                            //     if (bandExists)
+                            //     {
+                            //         newBand = context.Bands.FirstOrDefault(band => band.Name == usersBand);
+                            //         // newAlbum =
+
+                            //         Console.WriteLine($"\n{$"{newBand.Name}'s".Pastel(Color.Yellow)} Albums:\n");
+                            //         foreach (var album in context.Albums.Include(album => album.Band).Where(album => album.Band == newBand).OrderBy(album => album.Title))
+                            //         {
+                            //             // album.Description();
+                            //             // Console.WriteLine();
+                            //             Console.WriteLine($"{newBand.Name} has an album named {album.Title}");
+                            //             // Console.WriteLine($"Album Title: {Title}, Genre: {Genre}, Explicit: {IsExplicit.ToString().ToUpper()}, Release Date: {ReleaseDate.ToString("d")}");
+                            //         }
+
+                            //         break;
+                            //     }
+                            //     else
+                            //     {
+                            //         Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
+                            //         Console.WriteLine($"{"You must select a band!".Pastel(Color.Red)}");
+                            //     }
+
+                            // }
+
                             PressAnyKey("\nPress Any Key to Continue! ");
-                            keepGoing = false;
+                            Console.Clear();
+                            DisplayGreeting();
+                            // keepGoing = false;
                             break;
-                        case "N":
+                        case "A":
                             // Console.Clear();
+
+                            newAlbum.CreateAlbum();
+
                             PressAnyKey("\nPress Any Key to Continue! ");
-                            keepGoing = false;
+                            Console.Clear();
+                            DisplayGreeting();
+                            // keepGoing = false;
                             break;
                         case "E":
                             // Console.Clear();
+
+                            newSong.CreateSong();
+
                             PressAnyKey("\nPress Any Key to Continue! ");
-                            keepGoing = false;
+                            Console.Clear();
+                            DisplayGreeting();
+                            // keepGoing = false;
                             break;
                         // (R)esign Band
                         // case "R":
@@ -197,8 +261,43 @@ namespace RhythmsGonnaGetYou
                         //     break;
                         case "L":
                             // Console.Clear();
+
+                            var userTypedName = false;
+                            //  usersBand = "";
+                            while (!userTypedName)
+                            {
+                                Console.WriteLine($"\nWhich band's albums would you like to view?");
+                                var usersBand = Console.ReadLine();
+
+                                var bandExists = context.Bands.Any(band => band.Name == usersBand);
+                                if (bandExists)
+                                {
+                                    newBand = context.Bands.FirstOrDefault(band => band.Name == usersBand);
+                                    // newAlbum =
+
+                                    Console.WriteLine($"\n{$"{newBand.Name}'s".Pastel(Color.Yellow)} Albums Listed in Release Order:\n");
+                                    foreach (var album in context.Albums.Include(album => album.Band).Where(album => album.Band == newBand).OrderBy(album => album.ReleaseDate))
+                                    {
+                                        // album.Description();
+                                        // Console.WriteLine();
+                                        Console.WriteLine($"{newBand.Name} has an album named {album.Title} that was released on {album.ReleaseDate.ToLongDateString()}");
+                                        // Console.WriteLine($"Album Title: {Title}, Genre: {Genre}, Explicit: {IsExplicit.ToString().ToUpper()}, Release Date: {ReleaseDate.ToString("d")}");
+                                    }
+
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
+                                    Console.WriteLine($"{"You must select a band!".Pastel(Color.Red)}");
+                                }
+
+                            }
+
                             PressAnyKey("\nPress Any Key to Continue! ");
-                            keepGoing = false;
+                            Console.Clear();
+                            DisplayGreeting();
+                            // keepGoing = false;
                             break;
                         case "M":
                             // Console.Clear();
@@ -227,13 +326,43 @@ namespace RhythmsGonnaGetYou
 
         }
 
+        private static bool EditExistingBands(bool mangagerView, string name)
+        {
+            var correctAnswer = false;
+            var correctChoice = "";
+            while (!correctAnswer)
+            {
+                Console.WriteLine($"\nAre you sure you want to go into {"Hop".Pastel(Color.SeaGreen)}{"-".Pastel(Color.Violet)}{"Ip".Pastel(Color.LightSkyBlue)} {"Beats".Pastel(Color.MediumVioletRed)} mangager view, {name}? (Yes/No)");
+                correctChoice = Console.ReadLine().ToUpper();
+
+                if (correctChoice == "Y" || correctChoice == "YES")
+                {
+                    mangagerView = true;
+                    break;
+                }
+                else if (correctChoice == "N" || correctChoice == "NO")
+                {
+                    mangagerView = false;
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
+                    Console.WriteLine($"{"Your choice must be".Pastel(Color.Red)} {"Yes".Pastel(Color.Yellow)} {"or".Pastel(Color.Red)} {"No".Pastel(Color.Yellow)}{"!".Pastel(Color.Red)}");
+                }
+
+            }
+
+            return mangagerView;
+        }
+
         private static void ReAddBand(RecordLabelContext context)
         {
             var userTypedName = false;
             var usersBand = "";
             while (!userTypedName)
             {
-                Console.WriteLine($"\nWhat band would you like to welcome back?\nNote: This means {"Hop".Pastel(Color.SeaGreen)}{"-".Pastel(Color.Violet)}{"Ip".Pastel(Color.LightSkyBlue)} {"Beats".Pastel(Color.MediumVioletRed)} will support the selected band again!\n");
+                Console.WriteLine($"\nWhat band would you like to welcome back?\nNote: This means {"Hop".Pastel(Color.SeaGreen)}{"-".Pastel(Color.Violet)}{"Ip".Pastel(Color.LightSkyBlue)} {"Beats".Pastel(Color.MediumVioletRed)} will support the selected band again!");
                 usersBand = Console.ReadLine();
 
                 var isThisGoodInput = usersBand.Any(x => !char.IsNumber(x));
