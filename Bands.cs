@@ -20,7 +20,7 @@ namespace RhythmsGonnaGetYou
         public string ContactName { get; set; }
         public string ContactPhoneNumber { get; set; }
 
-        public List<Albums> Albums { get; set; }
+        public List<bin.Bands> Albums { get; set; }
 
         private RecordLabelContext context = new RecordLabelContext();
 

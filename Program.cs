@@ -36,7 +36,7 @@ namespace RhythmsGonnaGetYou
             // RecordLabelContext.Bands = MainMenu();
 
             var newBand = new Bands();
-            var newAlbum = new Albums();
+            var newAlbum = new bin.Bands();
             var newSong = new Songs();
             var context = new RecordLabelContext();
 
@@ -50,12 +50,137 @@ namespace RhythmsGonnaGetYou
             Console.WriteLine($"\nHope you are doing well today, {name}!");
             PressAnyKey("\nPress Any Key to Continue! ");
 
-            
             bool mangagerView = MainMenu(newBand, context, ref keepGoing, name);
+            ManagerMenu(newBand, newAlbum, newSong, context, ref keepGoing, name, ref mangagerView);
 
-            ManagerView(context, newBand, newAlbum, newSong, mangagerView, name);
+        }
+
+        private static void ManagerMenu(Bands newBand, bin.Bands newAlbum, Songs newSong, RecordLabelContext context, ref bool keepGoing, string name, ref bool mangagerView)
+        {
+            var promptAgain = true;
+
+            Console.Clear();
+            DisplayGreeting();
+
+            while (promptAgain)
+            {
+
+                if (mangagerView)
+                {
+
+                    Console.Write($"\nWelcome to {"Hop".Pastel(Color.SeaGreen)}{"-".Pastel(Color.Violet)}{"Ip".Pastel(Color.LightSkyBlue)} {"Beats".Pastel(Color.MediumVioletRed)} manager view, {name}!\n\nWhat do you want to do?\n(V)iew all Albums in Band\n(A)dd New Album to Band\n(E)dit Album in Band\n(L)ist Albums by Release Date for Band\n(G)enre Ordered List of Albums\n(M)ain Menu\n(Q)uit\n: ");
+                    var choices = Console.ReadLine().ToUpper();
+
+                    switch (choices)
+                    {
+                        case "V":
+                            // Console.Clear();
+
+                            AlbumsList(context, newBand);
+
+                            PressAnyKey("\nPress Any Key to Continue! ");
+                            Console.Clear();
+                            DisplayGreeting();
+                            // keepGoing = false;
+                            break;
+                        case "A":
+                            // Console.Clear();
+
+                            newAlbum.CreateAlbum();
+
+                            PressAnyKey("\nPress Any Key to Continue! ");
+                            Console.Clear();
+                            DisplayGreeting();
+                            // keepGoing = false;
+                            break;
+                        case "E":
+                            // Console.Clear();
+
+                            newSong.CreateSong();
+
+                            PressAnyKey("\nPress Any Key to Continue! ");
+                            Console.Clear();
+                            DisplayGreeting();
+                            // keepGoing = false;
+                            break;
+                        // (R)esign Band
+                        // case "R":
+                        //     // Console.Clear();
+
+                        //     var correctAnswer = false;
+                        //     var signed = "";
+                        //     while (!correctAnswer)
+                        //     {
+                        //         Console.WriteLine($"Are you sure you want to resign {newBand.Name}? ");
+                        //         signed = Console.ReadLine().ToUpper();
+
+                        //         if (signed == "Y" || signed == "YES")
+                        //         {
+                        //             newBand.IsSigned = true;
+                        //             Console.WriteLine($"\n{"{usersBand} had been reactivated within the studio!".Pastel(Color.Yellow)}");
+                        //             context.SaveChanges();
+                        //             break;
+                        //         }
+                        //         else if (signed == "N" || signed == "NO")
+                        //         {
+                        //             newBand.IsSigned = false;
+                        //             Console.WriteLine($"\n{"{usersBand} had not been resigned to the studio!".Pastel(Color.Yellow)}");
+                        //             context.SaveChanges();
+                        //             break;
+                        //         }
+                        //         else
+                        //         {
+                        //             Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
+                        //             Console.WriteLine($"{"Your choice must be".Pastel(Color.Red)} {"Yes".Pastel(Color.Yellow)} {"or".Pastel(Color.Red)} {"No".Pastel(Color.Yellow)}{"!".Pastel(Color.Red)}");
+                        //         }
+                        //     }
+
+                        //     PressAnyKey("\nPress Any Key to Continue! ");
+                        //     // keepGoing = false;
+                        //     break;
+                        case "L":
+                            // Console.Clear();
+
+                            ReleaseOrder(context, newBand);
+
+                            PressAnyKey("\nPress Any Key to Continue! ");
+                            Console.Clear();
+                            DisplayGreeting();
+                            // keepGoing = false;
+                            break;
+                        case "G":
+
+                            GenreOrder(context, newBand);
+
+                            PressAnyKey("\nPress Any Key to Continue! ");
+                            Console.Clear();
+                            DisplayGreeting();
+                            break;
+                        case "M":
+                            // Console.Clear();
+                            mangagerView = MainMenu(newBand, context, ref keepGoing, name);
+                            // PressAnyKey("\nPress Any Key to Continue! ");
+                            // keepGoing = false;
+                            break;
+                        case "Q":
+                            Console.Clear();
+                            // DisplayExit();
+                            Environment.Exit(0);
+                            keepGoing = false;
+                            break;
+                        default:
+                            Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
+                            PressAnyKey("\nPress Any Key to Continue! ");
+                            Console.Clear();
+                            DisplayGreeting();
+                            break;
+                    }
 
 
+
+                }
+
+            }
         }
 
         private static bool MainMenu(Bands newBand, RecordLabelContext context, ref bool keepGoing, string name)
@@ -159,133 +284,6 @@ namespace RhythmsGonnaGetYou
             }
 
             return mangagerView;
-        }
-
-        private static void ManagerView(RecordLabelContext context, Bands newBand, Albums newAlbum, Songs newSong, bool mangagerView, string name)
-        {
-            var promptAgain = true;
-
-            Console.Clear();
-            DisplayGreeting();
-
-            while (promptAgain)
-            {
-
-                if (mangagerView)
-                {
-
-                    Console.Write($"\nWelcome to {"Hop".Pastel(Color.SeaGreen)}{"-".Pastel(Color.Violet)}{"Ip".Pastel(Color.LightSkyBlue)} {"Beats".Pastel(Color.MediumVioletRed)} manager view, {name}!\n\nWhat do you want to do?\n(V)iew all Albums in Band\n(A)dd New Album to Band\n(E)dit Album in Band\n(L)ist Albums by Release Date for Band\n(G)enre Ordered List of Albums\n(M)ain Menu\n(Q)uit\n: ");
-                    var choices = Console.ReadLine().ToUpper();
-
-                    switch (choices)
-                    {
-                        case "V":
-                            // Console.Clear();
-
-                            AlbumsList(context, newBand);
-
-                            PressAnyKey("\nPress Any Key to Continue! ");
-                            Console.Clear();
-                            DisplayGreeting();
-                            // keepGoing = false;
-                            break;
-                        case "A":
-                            // Console.Clear();
-
-                            newAlbum.CreateAlbum();
-
-                            PressAnyKey("\nPress Any Key to Continue! ");
-                            Console.Clear();
-                            DisplayGreeting();
-                            // keepGoing = false;
-                            break;
-                        case "E":
-                            // Console.Clear();
-
-                            newSong.CreateSong();
-
-                            PressAnyKey("\nPress Any Key to Continue! ");
-                            Console.Clear();
-                            DisplayGreeting();
-                            // keepGoing = false;
-                            break;
-                        // (R)esign Band
-                        // case "R":
-                        //     // Console.Clear();
-
-                        //     var correctAnswer = false;
-                        //     var signed = "";
-                        //     while (!correctAnswer)
-                        //     {
-                        //         Console.WriteLine($"Are you sure you want to resign {newBand.Name}? ");
-                        //         signed = Console.ReadLine().ToUpper();
-
-                        //         if (signed == "Y" || signed == "YES")
-                        //         {
-                        //             newBand.IsSigned = true;
-                        //             Console.WriteLine($"\n{"{usersBand} had been reactivated within the studio!".Pastel(Color.Yellow)}");
-                        //             context.SaveChanges();
-                        //             break;
-                        //         }
-                        //         else if (signed == "N" || signed == "NO")
-                        //         {
-                        //             newBand.IsSigned = false;
-                        //             Console.WriteLine($"\n{"{usersBand} had not been resigned to the studio!".Pastel(Color.Yellow)}");
-                        //             context.SaveChanges();
-                        //             break;
-                        //         }
-                        //         else
-                        //         {
-                        //             Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
-                        //             Console.WriteLine($"{"Your choice must be".Pastel(Color.Red)} {"Yes".Pastel(Color.Yellow)} {"or".Pastel(Color.Red)} {"No".Pastel(Color.Yellow)}{"!".Pastel(Color.Red)}");
-                        //         }
-                        //     }
-
-                        //     PressAnyKey("\nPress Any Key to Continue! ");
-                        //     // keepGoing = false;
-                        //     break;
-                        case "L":
-                            // Console.Clear();
-
-                            ReleaseOrder(context, newBand);
-
-                            PressAnyKey("\nPress Any Key to Continue! ");
-                            Console.Clear();
-                            DisplayGreeting();
-                            // keepGoing = false;
-                            break;
-                        case "G":
-
-                            GenreOrder(context, newBand);
-
-                            PressAnyKey("\nPress Any Key to Continue! ");
-                            Console.Clear();
-                            DisplayGreeting();
-                            break;
-                        case "M":
-                            // Console.Clear();
-                            PressAnyKey("\nPress Any Key to Continue! ");
-                            // keepGoing = false;
-                            break;
-                        case "Q":
-                            Console.Clear();
-                            // DisplayExit();
-                            Environment.Exit(0);
-                            // keepGoing = false;
-                            break;
-                        default:
-                            Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
-                            PressAnyKey("\nPress Any Key to Continue! ");
-                            Console.Clear();
-                            DisplayGreeting();
-                            break;
-                    }
-
-
-
-                }
-
-            }
         }
 
         private static bool EditExistingBands(bool mangagerView, string name)
