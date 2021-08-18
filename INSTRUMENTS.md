@@ -6,7 +6,7 @@ This is a list of the `45` instruments that **Hop-Ip Beats** currently supports,
 
 Example:
 
-<!-- ![image of Finding Bahamas](./example.gif) -->
+<!-- ![image of Finding Vocalist](./example3.gif) -->
 
 To find, Vocalist, click **V** from the drop-downs below, there you will see Vocalist listed or look at the animated gif above!
 

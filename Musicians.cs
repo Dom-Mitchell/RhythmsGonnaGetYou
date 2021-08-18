@@ -83,7 +83,7 @@ namespace RhythmsGonnaGetYou
                     }
                     else
                     {
-                        Console.WriteLine($"{newMusician.Name} uses the {newMusician.Instrument}");
+                        Console.WriteLine($"{newMusician.Name} plays the {newMusician.Instrument}");
                     }
                     break;
                 }
@@ -91,7 +91,7 @@ namespace RhythmsGonnaGetYou
                 {
                     Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
                     Console.WriteLine($"{"We currently support".Pastel(Color.Red)} {$"{instruments.Count()}".Pastel(Color.LimeGreen)} {"different instruments!".Pastel(Color.Red)}");
-                    Console.WriteLine($"{"Please see".Pastel(Color.Red)} {"https://github.com/Domanator13/RhythmsGonnaGetYou/blob/trunk/COUNTRIES.md".Pastel(Color.FromArgb(51, 102, 187))}{" for a list of supported instruments!".Pastel(Color.Red)}");
+                    Console.WriteLine($"{"Please see".Pastel(Color.Red)} {"https://github.com/Domanator13/RhythmsGonnaGetYou/blob/trunk/INSTRUMENTS.md".Pastel(Color.FromArgb(51, 102, 187))}{" for a list of supported instruments!".Pastel(Color.Red)}");
                     Console.WriteLine($"{"Press".Pastel(Color.Red)} {"Ctrl".Pastel(Color.Yellow)} {"and".Pastel(Color.Red)} {"Click".Pastel(Color.Yellow)} {"the above link to view the website!".Pastel(Color.Red)}");
                 }
             }
