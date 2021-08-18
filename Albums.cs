@@ -10,6 +10,7 @@ namespace RhythmsGonnaGetYou.bin
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        // public string Genre { get; set; }
         public bool IsExplicit { get; set; }
         public DateTime ReleaseDate { get; set; }
         public int BandId { get; set; }
@@ -131,6 +132,7 @@ namespace RhythmsGonnaGetYou.bin
                         newBand = context.Bands.FirstOrDefault(band => band.Name == usersBand);
                         Console.WriteLine($"\n{newAlbum.Title} assigned to {newBand.Name}");
                         newAlbum.BandId = newBand.Id;
+                        // newAlbum.Genre = newBand.Style;
                         break;
                     }
                     else
@@ -146,7 +148,7 @@ namespace RhythmsGonnaGetYou.bin
                 }
             }
 
-            // context.Albums.Add(newAlbum);
+            context.Albums.Add(newAlbum);
             context.SaveChanges();
 
 

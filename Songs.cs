@@ -50,26 +50,30 @@ namespace RhythmsGonnaGetYou
             }
 
             var correctDuration = false;
-            var duration = "";
+            TimeSpan duration;
             while (!correctDuration)
             {
                 Console.WriteLine($"\nHow long is {newSong.Title}? Ex.(10:30)");
-                duration = Console.ReadLine();
+                // duration = Console.ReadLine();
+                // var isThisGoodInput = Int32.TryParse(Console.ReadLine(), out phoneNumber);
 
-                if (duration != "" && duration.Length <= 5 && duration.Contains(":"))
+                var isThisGoodInput = TimeSpan.TryParse(Console.ReadLine(), out duration);
+                // duration.ToString() != "" && duration.ToString().Length == 5 && duration.ToString().Contains(":")
+                if (isThisGoodInput)
                 {
-                    var isThisGoodInput = duration.Any(x => !char.IsLetter(x));
-                    if (isThisGoodInput)
-                    {
-                        newSong.Duration = TimeSpan.Parse(duration);
-                        Console.WriteLine($"\n{newSong.Title} is {newSong.Duration} long");
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
-                        Console.WriteLine($"{"Your song must have a duration!".Pastel(Color.Red)}");
-                    }
+                    // var isThisGoodInput = duration.Any(x => !char.IsLetter(x));
+
+                    // if (duration.Any(x => !char.IsLetter(x)))
+                    // {
+                    newSong.Duration = duration;
+                    Console.WriteLine($"\n{newSong.Title} is {newSong.Duration} long");
+                    break;
+                    // }
+                    // else
+                    // {
+                    //     Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
+                    //     Console.WriteLine($"{"Your song must have a duration!".Pastel(Color.Red)}");
+                    // }
                 }
                 else
                 {
@@ -128,7 +132,7 @@ namespace RhythmsGonnaGetYou
                 }
             }
 
-            // context.Songs.Add(newSong);
+            context.Songs.Add(newSong);
             context.SaveChanges();
 
 

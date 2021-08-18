@@ -56,6 +56,7 @@ namespace RhythmsGonnaGetYou
             "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam",
             "Yemen", "Zambia", "Zimbabwe" };
 
+            // Prohibited Characters from https://github.com/Domanator13/RhythmsGonnaGetYou/blob/trunk/PROHIBITEDCHARS.md
             var prohibitedCharacters = new List<string>() { "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", ";", ":", ",", "?", "/", @"\", "=", "+", "<", ">", " ", "_" };
 
             // Genre list from https://github.com/Domanator13/RhythmsGonnaGetYou/blob/trunk/MUSICALGENRES.md
@@ -144,16 +145,19 @@ namespace RhythmsGonnaGetYou
                 Console.WriteLine($"\nWhat is {newBand.Name}'s website?");
                 usersWebsite = Console.ReadLine().ToLower();
 
-                if (usersWebsite.Contains(".com") && prohibitedCharacters.Contains(usersWebsite) && usersWebsite.Length <= 75)
+                if (usersWebsite.Contains(".com") && !prohibitedCharacters.Contains(usersWebsite) && usersWebsite.Length <= 63)
                 {
                     newBand.Website = usersWebsite;
+                    Console.WriteLine($"\n{newBand.Name}'s website is {newBand.Website}");
                     break;
                 }
                 else
                 {
+
                     Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
-                    Console.WriteLine($"{"Your website must contain a".Pastel(Color.Red)} {".com".Pastel(Color.Yellow)} {"or similar ending!".Pastel(Color.Red)}");
-                    Console.WriteLine($"{"Please see".Pastel(Color.Red)} {"https://github.com/Domanator13/RhythmsGonnaGetYou/blob/trunk/COUNTRIES.md".Pastel(Color.FromArgb(51, 102, 187))}{" for a list of supported . endings and prohibited website characters!".Pastel(Color.Red)}");
+                    Console.WriteLine($"{"We currently only support".Pastel(Color.Red)} {".com".Pastel(Color.Yellow)} {"endings!".Pastel(Color.Red)}");
+                    // Console.WriteLine($"{"Your website must contain a".Pastel(Color.Red)} {".com".Pastel(Color.Yellow)} {"ending!".Pastel(Color.Red)}");
+                    Console.WriteLine($"{"Please see".Pastel(Color.Red)} {"https://github.com/Domanator13/RhythmsGonnaGetYou/blob/trunk/PROHIBITEDCHARS.md".Pastel(Color.FromArgb(51, 102, 187))}{" for a list of prohibited website characters!".Pastel(Color.Red)}");
                     Console.WriteLine($"{"Press".Pastel(Color.Red)} {"Ctrl".Pastel(Color.Yellow)} {"and".Pastel(Color.Red)} {"Click".Pastel(Color.Yellow)} {"the above link to view the website!".Pastel(Color.Red)}");
                 }
             }
@@ -254,7 +258,7 @@ namespace RhythmsGonnaGetYou
                     else
                     {
                         Console.WriteLine($"{"\nIncorrect phone number. Please try again!".Pastel(Color.Red)}");
-                        Console.WriteLine($"{"We currently only support".Pastel(Color.Red)} {$"US Phone Numbers".Pastel(Color.LimeGreen)} {"!\nMore to come at a later time!".Pastel(Color.Red)}");
+                        Console.WriteLine($"{"We currently only support".Pastel(Color.Red)} {$"US Phone Numbers".Pastel(Color.Yellow)} {"!\nMore to come at a later time!".Pastel(Color.Red)}");
                         Console.WriteLine($"{"Your choice must 10 numbers long".Pastel(Color.Red)}");
                     }
                 }
@@ -267,7 +271,7 @@ namespace RhythmsGonnaGetYou
             }
 
             // SingularBand.Name =
-            // context.Bands.Add(newBand);
+            context.Bands.Add(newBand);
             context.SaveChanges();
 
         }

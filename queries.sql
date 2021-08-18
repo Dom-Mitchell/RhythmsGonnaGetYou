@@ -13,10 +13,12 @@ pgcli RecordsDatabase
 CREATE TABLE "Albums" ("Id" SERIAL PRIMARY KEY, "Title" TEXT, "IsExplicit" BOOLEAN, "ReleaseDate" DATE, "BandId" INTEGER NULL REFERENCES "Bands" ("Id"));
 
 -- Step 4
+ALTER TABLE "Bands" ADD CONSTRAINT Bands_Pk PRIMARY KEY (Id, Style);
+
 CREATE TABLE "Bands" ("Id" SERIAL PRIMARY KEY, "Name" TEXT, "CountryOfOrigin" TEXT, "NumberOfMembers" INTEGER, "Website" TEXT, "Style" TEXT, "IsSigned" BOOLEAN, "ContactName" TEXT, "ContactPhoneNumber" VARCHAR(26));
 
 -- Step 5
-CREATE TABLE "Songs" ("Id" SERIAL PRIMARY KEY, "Title" TEXT, "Duration" TIME, "TrackNumber" INT, "AlbumId" INTEGER NULL REFERENCES "Albums" ("AlbumId"));
+CREATE TABLE "Songs" ("Id" SERIAL PRIMARY KEY, "Title" TEXT, "Duration" TIME, "TrackNumber" INT, "AlbumId" INTEGER NULL REFERENCES "Albums" ("Id"));
 
 -- Step 6 (Relationship between Entities)
 ALTER TABLE "Bands" ADD COLUMN "AlbumId" INTEGER NULL REFERENCES "Albums" ("Id");
