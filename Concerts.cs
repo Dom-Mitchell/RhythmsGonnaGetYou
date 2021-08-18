@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Pastel;
-using RhythmsGonnaGetYou.bin;
 
 namespace RhythmsGonnaGetYou
 {
@@ -44,6 +42,7 @@ namespace RhythmsGonnaGetYou
 
             var correctDate = false;
             var releaseDate = "";
+            var newReleaseDate = default(DateTime);
             while (!correctDate)
             {
                 Console.WriteLine($"\nWhen will the concert be?\nIs it today? (Yes/No) ");
@@ -57,16 +56,9 @@ namespace RhythmsGonnaGetYou
                 }
                 else if (releaseDate == "N" || releaseDate == "NO")
                 {
-
                     Console.WriteLine($"\nWhen is the concert? Ex.(01/01/2000) ");
-                    // var newReleaseDate = DateTime.Parse(Console.ReadLine());
 
-                    // var formattedDate = newReleaseDate;
-
-
-                    var newReleaseDate = default(DateTime);
                     var isThisGoodInput = DateTime.TryParse(Console.ReadLine(), out newReleaseDate);
-
                     if (isThisGoodInput)
                     {
                         newConcert.Date = newReleaseDate;
@@ -100,7 +92,6 @@ namespace RhythmsGonnaGetYou
                         newBand = context.Bands.FirstOrDefault(band => band.Name == usersBand);
                         Console.WriteLine($"\n{newBand.Name} has a concert on {newConcert.Date}");
                         newConcert.BandId = newBand.Id;
-                        // newAlbum.Genre = newBand.Style;
                         break;
                     }
                     else
@@ -118,7 +109,6 @@ namespace RhythmsGonnaGetYou
 
             context.Concerts.Add(newConcert);
             context.SaveChanges();
-
         }
     }
 }

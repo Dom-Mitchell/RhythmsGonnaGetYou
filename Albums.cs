@@ -10,7 +10,6 @@ namespace RhythmsGonnaGetYou.bin
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        // public string Genre { get; set; }
         public bool IsExplicit { get; set; }
         public DateTime ReleaseDate { get; set; }
         public int BandId { get; set; }
@@ -75,6 +74,7 @@ namespace RhythmsGonnaGetYou.bin
 
             var correctDate = false;
             var releaseDate = "";
+            var newReleaseDate = default(DateTime);
             while (!correctDate)
             {
                 Console.WriteLine($"\nWhen did {newAlbum.Title} come out?\nWas is today? (Yes/No) ");
@@ -88,16 +88,9 @@ namespace RhythmsGonnaGetYou.bin
                 }
                 else if (releaseDate == "N" || releaseDate == "NO")
                 {
-
                     Console.WriteLine($"\nWhen did {newAlbum.Title} come out? Ex.(01/01/2000) ");
-                    // var newReleaseDate = DateTime.Parse(Console.ReadLine());
 
-                    // var formattedDate = newReleaseDate;
-
-
-                    var newReleaseDate = default(DateTime);
                     var isThisGoodInput = DateTime.TryParse(Console.ReadLine(), out newReleaseDate);
-
                     if (isThisGoodInput)
                     {
                         newAlbum.ReleaseDate = newReleaseDate;
@@ -115,7 +108,6 @@ namespace RhythmsGonnaGetYou.bin
                     Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
                     Console.WriteLine($"{"Your choice must be".Pastel(Color.Red)} {"Yes".Pastel(Color.Yellow)} {"or".Pastel(Color.Red)} {"No".Pastel(Color.Yellow)}{"!".Pastel(Color.Red)}");
                 }
-
             }
 
             var userTypedName = false;
@@ -132,7 +124,6 @@ namespace RhythmsGonnaGetYou.bin
                         newBand = context.Bands.FirstOrDefault(band => band.Name == usersBand);
                         Console.WriteLine($"\n{newAlbum.Title} assigned to {newBand.Name}");
                         newAlbum.BandId = newBand.Id;
-                        // newAlbum.Genre = newBand.Style;
                         break;
                     }
                     else
@@ -150,9 +141,6 @@ namespace RhythmsGonnaGetYou.bin
 
             context.Albums.Add(newAlbum);
             context.SaveChanges();
-
-
         }
-
     }
 }

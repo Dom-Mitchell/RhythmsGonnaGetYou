@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using Pastel;
 using RhythmsGonnaGetYou.bin;
 
@@ -24,15 +23,6 @@ namespace RhythmsGonnaGetYou
 
         private RecordLabelContext context = new RecordLabelContext();
 
-        // public void Description()
-        // {
-        //     Console.WriteLine($"Band Name: {Name}\nCountry of Origin: {CountryOfOrigin}\nWebsite: {Website}\nStyle: {Style}\nSigned to Record Label: {IsSigned}\nContact Name: {ContactName}\nContact Phone Number: {ContactPhoneNumber}");
-        //     // Console.WriteLine($"");
-        //     // Console.WriteLine($"");
-        // }
-
-
-        // public Band SingularBand = new Band();
         public bool BandExists = false;
 
         public void CreateBand()
@@ -72,8 +62,6 @@ namespace RhythmsGonnaGetYou
 
                 if (usersBand != "")
                 {
-                    // context.Bands.Any(user => newBand.Name == usersBand)
-                    // context.Bands.Contains(usersBand)
                     if (context.Bands.Any(band => band.Name == usersBand))
                     {
                         Console.WriteLine($"{"That band name is taken. Please Try again!".Pastel(Color.Yellow)}");
@@ -81,11 +69,6 @@ namespace RhythmsGonnaGetYou
                     }
                     newBand.Name = usersBand;
                     break;
-                    // else
-                    // {
-                    //     // Console.WriteLine($"Test");
-
-                    // }
                 }
                 else
                 {
@@ -121,10 +104,8 @@ namespace RhythmsGonnaGetYou
             while (!correcMemberNumber)
             {
                 Console.WriteLine($"\nHow many people are in {newBand.Name}?");
-                // usersMembers = Console.ReadLine();
 
                 var isThisGoodInput = Int32.TryParse(Console.ReadLine(), out usersMembers);
-
                 if (usersMembers > 0 && usersMembers <= 10 && isThisGoodInput)
                 {
                     newBand.NumberOfMembers = usersMembers;
@@ -156,7 +137,6 @@ namespace RhythmsGonnaGetYou
 
                     Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
                     Console.WriteLine($"{"We currently only support".Pastel(Color.Red)} {".com".Pastel(Color.Yellow)} {"endings!".Pastel(Color.Red)}");
-                    // Console.WriteLine($"{"Your website must contain a".Pastel(Color.Red)} {".com".Pastel(Color.Yellow)} {"ending!".Pastel(Color.Red)}");
                     Console.WriteLine($"{"Please see".Pastel(Color.Red)} {"https://github.com/Domanator13/RhythmsGonnaGetYou/blob/trunk/PROHIBITEDCHARS.md".Pastel(Color.FromArgb(51, 102, 187))}{" for a list of prohibited website characters!".Pastel(Color.Red)}");
                     Console.WriteLine($"{"Press".Pastel(Color.Red)} {"Ctrl".Pastel(Color.Yellow)} {"and".Pastel(Color.Red)} {"Click".Pastel(Color.Yellow)} {"the above link to view the website!".Pastel(Color.Red)}");
                 }
@@ -182,7 +162,6 @@ namespace RhythmsGonnaGetYou
                     Console.WriteLine($"{"Please see".Pastel(Color.Red)} {"https://github.com/Domanator13/RhythmsGonnaGetYou/blob/trunk/MUSICALGENRES.md".Pastel(Color.FromArgb(51, 102, 187))}{" for a list of supported countries!".Pastel(Color.Red)}");
                     Console.WriteLine($"{"Press".Pastel(Color.Red)} {"Ctrl".Pastel(Color.Yellow)} {"and".Pastel(Color.Red)} {"Click".Pastel(Color.Yellow)} {"the above link to view the website!".Pastel(Color.Red)}");
                 }
-
             }
 
             var correctAnswer = false;
@@ -209,8 +188,24 @@ namespace RhythmsGonnaGetYou
                 }
             }
 
-            Console.WriteLine($"\nWho is the contact for {newBand.Name}?");
-            newBand.ContactName = Console.ReadLine();
+            var correctContact = false;
+            var contact = "";
+            while (!correctContact)
+            {
+                Console.WriteLine($"\nWho is the contact for {newBand.Name}?");
+                contact = Console.ReadLine();
+
+                if (contact != "")
+                {
+                    newBand.ContactName = contact;
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
+                    Console.WriteLine($"{"Your band must have a contact".Pastel(Color.Red)}");
+                }
+            }
 
             var correctPhoneLength = false;
             var phoneNumber = "";
@@ -218,31 +213,6 @@ namespace RhythmsGonnaGetYou
             {
                 Console.WriteLine($"\nWhat is {newBand.ContactName}'s phone number? Ex.[(123)-456-7890]");
                 phoneNumber = Console.ReadLine();
-
-                // StringBuilder formattedPhoneNumber = new StringBuilder();
-                // while (true)
-                // {
-                //     var keyPressed = Console.ReadKey(true);
-
-                //     if (keyPressed.Key == ConsoleKey.Enter)
-                //     {
-                //         break;
-                //     }
-                //     if (keyPressed.Key == ConsoleKey.Backspace)
-                //     {
-                //         if (formattedPhoneNumber.Length > 0)
-                //         {
-                //             Console.Write("\b \b");
-                //             formattedPhoneNumber.Length--;
-                //         }
-                //         continue;
-                //     }
-                //     Console.Write($"{keyPressed.KeyChar}");
-                //     formattedPhoneNumber.Append(keyPressed.KeyChar);
-                // }
-                // phoneNumber += formattedPhoneNumber;
-
-                // var isThisGoodInput = Int32.TryParse(Console.ReadLine(), out phoneNumber);
 
                 if (phoneNumber.Length == 10)
                 {
@@ -252,7 +222,7 @@ namespace RhythmsGonnaGetYou
                         var formattedPhoneNumber = String.Format("{0:+1(###)-###-####}", Int64.Parse(phoneNumber));
                         newBand.ContactPhoneNumber = formattedPhoneNumber;
 
-                        Console.WriteLine(formattedPhoneNumber);
+                        Console.WriteLine($"{newBand.ContactName}'s phone number is {formattedPhoneNumber}");
                         break;
                     }
                     else
@@ -267,13 +237,10 @@ namespace RhythmsGonnaGetYou
                     Console.WriteLine($"{"\nIncorrect phone number. Please try again!".Pastel(Color.Red)}");
                     Console.WriteLine($"{"Your choice must 10 characters long".Pastel(Color.Red)}");
                 }
-
             }
 
-            // SingularBand.Name =
             context.Bands.Add(newBand);
             context.SaveChanges();
-
         }
     }
 }

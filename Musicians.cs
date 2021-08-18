@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Pastel;
-using RhythmsGonnaGetYou.bin;
 
 namespace RhythmsGonnaGetYou
 {
@@ -56,8 +55,8 @@ namespace RhythmsGonnaGetYou
             while (!userTypedAge)
             {
                 Console.WriteLine($"\nHow old is {newMusician.Name}?");
-                var isThisGoodInput = Int32.TryParse(Console.ReadLine(), out usersAge);
 
+                var isThisGoodInput = Int32.TryParse(Console.ReadLine(), out usersAge);
                 if (isThisGoodInput && usersAge >= 18)
                 {
                     newMusician.Age = usersAge;
@@ -76,7 +75,6 @@ namespace RhythmsGonnaGetYou
             while (!userTypedInstrument)
             {
                 Console.WriteLine($"\nWhat instrument does {newMusician.Name} use?");
-                // var isThisGoodInput = Int32.TryParse(Console.ReadLine(), out usersAge);
                 usersInstrument = Console.ReadLine();
 
                 if (instruments.Contains(usersInstrument))
@@ -139,7 +137,6 @@ namespace RhythmsGonnaGetYou
                         newBand = context.Bands.FirstOrDefault(band => band.Name == usersBand);
                         Console.WriteLine($"\n{newMusician.Name} added to {newBand.Name}");
                         newMusician.BandId = newBand.Id;
-                        // newAlbum.Genre = newBand.Style;
                         break;
                     }
                     else
