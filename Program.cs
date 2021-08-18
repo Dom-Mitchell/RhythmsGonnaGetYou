@@ -50,6 +50,16 @@ namespace RhythmsGonnaGetYou
             Console.WriteLine($"\nHope you are doing well today, {name}!");
             PressAnyKey("\nPress Any Key to Continue! ");
 
+            
+            bool mangagerView = MainMenu(newBand, context, ref keepGoing, name);
+
+            ManagerView(context, newBand, newAlbum, newSong, mangagerView, name);
+
+
+        }
+
+        private static bool MainMenu(Bands newBand, RecordLabelContext context, ref bool keepGoing, string name)
+        {
             Console.Clear();
             DisplayGreeting();
 
@@ -148,6 +158,11 @@ namespace RhythmsGonnaGetYou
 
             }
 
+            return mangagerView;
+        }
+
+        private static void ManagerView(RecordLabelContext context, Bands newBand, Albums newAlbum, Songs newSong, bool mangagerView, string name)
+        {
             var promptAgain = true;
 
             Console.Clear();
@@ -250,13 +265,13 @@ namespace RhythmsGonnaGetYou
                         case "M":
                             // Console.Clear();
                             PressAnyKey("\nPress Any Key to Continue! ");
-                            keepGoing = false;
+                            // keepGoing = false;
                             break;
                         case "Q":
                             Console.Clear();
                             // DisplayExit();
                             Environment.Exit(0);
-                            keepGoing = false;
+                            // keepGoing = false;
                             break;
                         default:
                             Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
@@ -271,7 +286,6 @@ namespace RhythmsGonnaGetYou
                 }
 
             }
-
         }
 
         private static bool EditExistingBands(bool mangagerView, string name)
