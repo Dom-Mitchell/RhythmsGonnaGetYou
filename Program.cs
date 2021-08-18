@@ -167,37 +167,7 @@ namespace RhythmsGonnaGetYou
                         case "V":
                             // Console.Clear();
 
-                            // var userTypedName = false;
-                            // //  usersBand = "";
-                            // while (!userTypedName)
-                            // {
-                            //     Console.WriteLine($"\nWhich band's albums would you like to view?");
-                            //     var usersBand = Console.ReadLine();
-
-                            //     var bandExists = context.Bands.Any(band => band.Name == usersBand);
-                            //     if (bandExists)
-                            //     {
-                            //         newBand = context.Bands.FirstOrDefault(band => band.Name == usersBand);
-                            //         // newAlbum =
-
-                            //         Console.WriteLine($"\n{$"{newBand.Name}'s".Pastel(Color.Yellow)} Albums:\n");
-                            //         foreach (var album in context.Albums.Include(album => album.Band).Where(album => album.Band == newBand).OrderBy(album => album.Title))
-                            //         {
-                            //             // album.Description();
-                            //             // Console.WriteLine();
-                            //             Console.WriteLine($"{newBand.Name} has an album named {album.Title}");
-                            //             // Console.WriteLine($"Album Title: {Title}, Genre: {Genre}, Explicit: {IsExplicit.ToString().ToUpper()}, Release Date: {ReleaseDate.ToString("d")}");
-                            //         }
-
-                            //         break;
-                            //     }
-                            //     else
-                            //     {
-                            //         Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
-                            //         Console.WriteLine($"{"You must select a band!".Pastel(Color.Red)}");
-                            //     }
-
-                            // }
+                            AlbumsList(context, newBand);
 
                             PressAnyKey("\nPress Any Key to Continue! ");
                             Console.Clear();
@@ -262,37 +232,7 @@ namespace RhythmsGonnaGetYou
                         case "L":
                             // Console.Clear();
 
-                            // var userTypedName = false;
-                            // //  usersBand = "";
-                            // while (!userTypedName)
-                            // {
-                            //     Console.WriteLine($"\nWhich band's albums would you like to view?");
-                            //     var usersBand = Console.ReadLine();
-
-                            //     var bandExists = context.Bands.Any(band => band.Name == usersBand);
-                            //     if (bandExists)
-                            //     {
-                            //         newBand = context.Bands.FirstOrDefault(band => band.Name == usersBand);
-                            //         // newAlbum =
-
-                            //         Console.WriteLine($"\n{$"{newBand.Name}'s".Pastel(Color.Yellow)} Albums Listed in Release Order:\n");
-                            //         foreach (var album in context.Albums.Include(album => album.Band).Where(album => album.Band == newBand).OrderBy(album => album.ReleaseDate))
-                            //         {
-                            //             // album.Description();
-                            //             // Console.WriteLine();
-                            //             Console.WriteLine($"{newBand.Name} has an album named {album.Title} that was released on {album.ReleaseDate.ToLongDateString()}");
-                            //             // Console.WriteLine($"Album Title: {Title}, Genre: {Genre}, Explicit: {IsExplicit.ToString().ToUpper()}, Release Date: {ReleaseDate.ToString("d")}");
-                            //         }
-
-                            //         break;
-                            //     }
-                            //     else
-                            //     {
-                            //         Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
-                            //         Console.WriteLine($"{"You must select a band!".Pastel(Color.Red)}");
-                            //     }
-
-                            // }
+                            ReleaseOrder(context, newBand);
 
                             PressAnyKey("\nPress Any Key to Continue! ");
                             Console.Clear();
@@ -301,37 +241,7 @@ namespace RhythmsGonnaGetYou
                             break;
                         case "G":
 
-                            var userTypedName = false;
-                            //  usersBand = "";
-                            while (!userTypedName)
-                            {
-                                Console.WriteLine($"\nWhich genre would you like to view?");
-                                var usersStyle = Console.ReadLine();
-
-                                var styleExists = context.Bands.Any(band => band.Style == usersStyle);
-                                if (styleExists)
-                                {
-                                    newBand = context.Bands.FirstOrDefault(band => band.Style == usersStyle);
-                                    // newAlbum =
-
-                                    Console.WriteLine($"\n{"Hop".Pastel(Color.SeaGreen)}{"-".Pastel(Color.Violet)}{"Ip".Pastel(Color.LightSkyBlue)} {"Beats".Pastel(Color.MediumVioletRed)} {usersStyle} Albums:\n");
-                                    foreach (var album in context.Albums.Include(album => album.Band).Where(album => album.Band == newBand).OrderBy(album => album.ReleaseDate))
-                                    {
-                                        // album.Description();
-                                        // Console.WriteLine();
-                                        Console.WriteLine($"{newBand.Name} has an album named {album.Title}");
-                                        // Console.WriteLine($"Album Title: {Title}, Genre: {Genre}, Explicit: {IsExplicit.ToString().ToUpper()}, Release Date: {ReleaseDate.ToString("d")}");
-                                    }
-
-                                    break;
-                                }
-                                else
-                                {
-                                    Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
-                                    Console.WriteLine($"{"You must select a band!".Pastel(Color.Red)}");
-                                }
-
-                            }
+                            GenreOrder(context, newBand);
 
                             PressAnyKey("\nPress Any Key to Continue! ");
                             Console.Clear();
@@ -392,6 +302,111 @@ namespace RhythmsGonnaGetYou
             }
 
             return mangagerView;
+        }
+
+        private static void AlbumsList(RecordLabelContext context, Bands newBand)
+        {
+            var userTypedName = false;
+            //  usersBand = "";
+            while (!userTypedName)
+            {
+                Console.WriteLine($"\nWhich band's albums would you like to view?");
+                var usersBand = Console.ReadLine();
+
+                var bandExists = context.Bands.Any(band => band.Name == usersBand);
+                if (bandExists)
+                {
+                    newBand = context.Bands.FirstOrDefault(band => band.Name == usersBand);
+                    // newAlbum =
+
+                    Console.WriteLine($"\n{$"{newBand.Name}'s".Pastel(Color.Yellow)} Albums:\n");
+                    foreach (var album in context.Albums.Include(album => album.Band).Where(album => album.Band == newBand).OrderBy(album => album.Title))
+                    {
+                        // album.Description();
+                        // Console.WriteLine();
+                        Console.WriteLine($"{newBand.Name} has an album named {album.Title}");
+                        // Console.WriteLine($"Album Title: {Title}, Genre: {Genre}, Explicit: {IsExplicit.ToString().ToUpper()}, Release Date: {ReleaseDate.ToString("d")}");
+                    }
+
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
+                    Console.WriteLine($"{"You must select a band!".Pastel(Color.Red)}");
+                }
+
+            }
+        }
+
+        private static void GenreOrder(RecordLabelContext context, Bands newBand)
+        {
+            var userTypedName = false;
+            //  usersBand = "";
+            while (!userTypedName)
+            {
+                Console.WriteLine($"\nWhich genre would you like to view?");
+                var usersStyle = Console.ReadLine();
+
+                var styleExists = context.Bands.Any(band => band.Style == usersStyle);
+                if (styleExists)
+                {
+                    newBand = context.Bands.FirstOrDefault(band => band.Style == usersStyle);
+                    // newAlbum =
+
+                    Console.WriteLine($"\n{"Hop".Pastel(Color.SeaGreen)}{"-".Pastel(Color.Violet)}{"Ip".Pastel(Color.LightSkyBlue)} {"Beats".Pastel(Color.MediumVioletRed)} {usersStyle} Albums:\n");
+                    foreach (var album in context.Albums.Include(album => album.Band).Where(album => album.Band == newBand))
+                    {
+                        // album.Description();
+                        // Console.WriteLine();
+                        Console.WriteLine($"{newBand.Name} has an album named {album.Title}");
+                        // Console.WriteLine($"Album Title: {Title}, Genre: {Genre}, Explicit: {IsExplicit.ToString().ToUpper()}, Release Date: {ReleaseDate.ToString("d")}");
+                    }
+
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
+                    Console.WriteLine($"{"You must select a band!".Pastel(Color.Red)}");
+                }
+
+            }
+        }
+
+        private static void ReleaseOrder(RecordLabelContext context, Bands newBand)
+        {
+            var userTypedName = false;
+            //  usersBand = "";
+            while (!userTypedName)
+            {
+                Console.WriteLine($"\nWhich band's albums would you like to view?");
+                var usersBand = Console.ReadLine();
+
+                var bandExists = context.Bands.Any(band => band.Name == usersBand);
+                if (bandExists)
+                {
+                    newBand = context.Bands.FirstOrDefault(band => band.Name == usersBand);
+                    // newAlbum =
+
+                    Console.WriteLine($"\n{$"{newBand.Name}'s".Pastel(Color.Yellow)} Albums Listed in Release Order:\n");
+                    foreach (var album in context.Albums.Include(album => album.Band).Where(album => album.Band == newBand).OrderBy(album => album.ReleaseDate))
+                    {
+                        // album.Description();
+                        // Console.WriteLine();
+                        Console.WriteLine($"{newBand.Name} has an album named {album.Title} that was released on {album.ReleaseDate.ToLongDateString()}");
+                        // Console.WriteLine($"Album Title: {Title}, Genre: {Genre}, Explicit: {IsExplicit.ToString().ToUpper()}, Release Date: {ReleaseDate.ToString("d")}");
+                    }
+
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
+                    Console.WriteLine($"{"You must select a band!".Pastel(Color.Red)}");
+                }
+
+            }
         }
 
         private static void ReAddBand(RecordLabelContext context)
@@ -488,10 +503,19 @@ namespace RhythmsGonnaGetYou
 
         private static void ListBands(RecordLabelContext context)
         {
-            var bandNames = context.Bands;
             Console.WriteLine($"\nBands Signed by {"Hop".Pastel(Color.SeaGreen)}{"-".Pastel(Color.Violet)}{"Ip".Pastel(Color.LightSkyBlue)} {"Beats".Pastel(Color.MediumVioletRed)}:\n");
+            var signedBands = context.Bands.Where(band => band.IsSigned == true);
+            // var bandNames = context.Bands;
 
-            foreach (var band in bandNames)
+            foreach (var band in signedBands)
+            {
+                Console.WriteLine($"There is a band named {band.Name}");
+            }
+
+            Console.WriteLine($"\nBands not currently signed by {"Hop".Pastel(Color.SeaGreen)}{"-".Pastel(Color.Violet)}{"Ip".Pastel(Color.LightSkyBlue)} {"Beats".Pastel(Color.MediumVioletRed)}:\n");
+            var unsignedBands = context.Bands.Where(band => band.IsSigned == false);
+
+            foreach (var band in unsignedBands)
             {
                 Console.WriteLine($"There is a band named {band.Name}");
             }
