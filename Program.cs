@@ -12,7 +12,6 @@ namespace RhythmsGonnaGetYou
         static void DisplayGreeting()
         {
             // Hippo from https://www.asciiart.eu/animals/other-land & Ascii text from https://www.ascii-art-generator.org/
-            Console.Clear();
             Console.WriteLine($"{"#     #              ".Pastel(Color.SeaGreen)}{"      ".Pastel(Color.Violet)}{" ###       ".Pastel(Color.LightSkyBlue)}{" ######                            ".Pastel(Color.MediumVioletRed)} {@"      c~~p ,---------.    ".Pastel(Color.SteelBlue)}");
             Console.WriteLine($"{"#     #  ####  ##### ".Pastel(Color.SeaGreen)}{"      ".Pastel(Color.Violet)}{"  #  ##### ".Pastel(Color.LightSkyBlue)}{" #     # ######   ##   #####  #### ".Pastel(Color.MediumVioletRed)} {@" ,---'".Pastel(Color.SteelBlue)}{"oo".Pastel(Color.ForestGreen)}{@"  )           \".Pastel(Color.SteelBlue)}");
             Console.WriteLine($"{"#     # #    # #    #".Pastel(Color.SeaGreen)}{"      ".Pastel(Color.Violet)}{"  #  #    #".Pastel(Color.LightSkyBlue)}{" #     # #       #  #    #   #     ".Pastel(Color.MediumVioletRed)} {@"(".Pastel(Color.SteelBlue)}{" O O".Pastel(Color.DimGray)}{"                  )/ ".Pastel(Color.SteelBlue)}");
@@ -29,6 +28,21 @@ namespace RhythmsGonnaGetYou
             Console.WriteLine(prompt);
             var keyPressed = Console.ReadKey().KeyChar;
             return keyPressed;
+        }
+
+        static void DisplayExit()
+        {
+            // Hippo from https://www.asciiart.eu/animals/other-land & Ascii text from https://www.ascii-art-generator.org/
+            Console.WriteLine($"{"######                                    ".Pastel(Color.SeaGreen)}{" #     #                     ".Pastel(Color.LightSkyBlue)}{" ###".Pastel(Color.MediumVioletRed)} {@"      c~~p ,---------.    ".Pastel(Color.SteelBlue)}");
+            Console.WriteLine($"{"#     # ######  ####   ####  #####  ##### ".Pastel(Color.SeaGreen)}{" ##   ##  ####  #####  ######".Pastel(Color.LightSkyBlue)}{" ###".Pastel(Color.MediumVioletRed)} {@" ,---'".Pastel(Color.SteelBlue)}{"oo".Pastel(Color.ForestGreen)}{@"  )           \".Pastel(Color.SteelBlue)}");
+            Console.WriteLine($"{"#     # #      #    # #    # #    # #    #".Pastel(Color.SeaGreen)}{" # # # # #    # #    # #     ".Pastel(Color.LightSkyBlue)}{" ###".Pastel(Color.MediumVioletRed)} {@"(".Pastel(Color.SteelBlue)}{" O O".Pastel(Color.DimGray)}{"                  )/ ".Pastel(Color.SteelBlue)}");
+            Console.WriteLine($"{"######  #####  #      #    # #    # #    #".Pastel(Color.SeaGreen)}{" #  #  # #    # #    # ##### ".Pastel(Color.LightSkyBlue)}{"  # ".Pastel(Color.MediumVioletRed)} {@" `".Pastel(Color.SteelBlue)}{"=".Pastel(Color.WhiteSmoke)}{"^".Pastel(Color.LightPink)}{"=".Pastel(Color.WhiteSmoke)}{@"'                 /".Pastel(Color.SteelBlue)}");
+            Console.WriteLine($"{"#   #   #      #      #    # #####  #    #".Pastel(Color.SeaGreen)}{" #     # #    # #####  #     ".Pastel(Color.LightSkyBlue)}{"    ".Pastel(Color.MediumVioletRed)} {@"       \    ,     .   /   ".Pastel(Color.SteelBlue)}");
+            Console.WriteLine($"{"#    #  #      #    # #    # #   #  #    #".Pastel(Color.SeaGreen)}{" #     # #    # #   #  #     ".Pastel(Color.LightSkyBlue)}{" ###".Pastel(Color.MediumVioletRed)} {@"       \".Pastel(Color.DimGray)}{@"\".Pastel(Color.SteelBlue)}{@"  |-----'|  /    ".Pastel(Color.SteelBlue)}");
+            Console.WriteLine($"{"#     # ######  ####   ####  #    # ##### ".Pastel(Color.SeaGreen)}{" #     #  ####  #    # ######".Pastel(Color.LightSkyBlue)}{" ###".Pastel(Color.MediumVioletRed)} {@"       |".Pastel(Color.DimGray)}{"|__|".Pastel(Color.SteelBlue)}    {"|_".Pastel(Color.DimGray)}{"|__|".Pastel(Color.SteelBlue)}\n");
+            Console.WriteLine($"{"############################################################################################################".Pastel(Color.DarkGoldenrod)}");
+            Console.WriteLine($"{"############################################################################################################".Pastel(Color.DarkGoldenrod)}");
+
         }
 
         static void Main(string[] args)
@@ -178,7 +192,7 @@ namespace RhythmsGonnaGetYou
                             break;
                         case "Q":
                             Console.Clear();
-                            // DisplayExit();
+                            DisplayExit();
                             Environment.Exit(0);
                             keepGoing = false;
                             break;
@@ -207,7 +221,7 @@ namespace RhythmsGonnaGetYou
             mangagerView = false;
             while (keepGoing && !mangagerView)
             {
-                Console.Write("\nWhat do you want to do?\n(C)reate Band\n(V)iew Bands (Manager View)\n(L)ist all Bands\n(R)emove Band\n(W)elcome Band Back\n(S)igned Bands\n(U)nsigned Bands\n(Q)uit\n: ");
+                Console.Write("\nWhat do you want to do?\n(C)reate Band\n(M)anager View\n(L)ist all Bands\n(R)emove Band\n(W)elcome Band Back\n(S)igned Bands\n(U)nsigned Bands\n(Q)uit\n: ");
                 var choices = Console.ReadLine().ToUpper();
 
                 switch (choices)
@@ -220,7 +234,7 @@ namespace RhythmsGonnaGetYou
                         DisplayGreeting();
                         // keepGoing = false;
                         break;
-                    case "V":
+                    case "M":
                         // Console.Clear();
                         // newBand.ExistingBand();
 
@@ -282,8 +296,8 @@ namespace RhythmsGonnaGetYou
                         // keepGoing = false;
                         break;
                     case "Q":
-                        // Console.Clear();
-                        // DisplayExit();
+                        Console.Clear();
+                        DisplayExit();
                         Environment.Exit(0);
                         keepGoing = false;
                         break;
