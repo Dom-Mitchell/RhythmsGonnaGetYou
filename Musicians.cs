@@ -55,8 +55,8 @@ namespace RhythmsGonnaGetYou
 
                 if (isThisGoodInput && usersAge >= 18)
                 {
-                    Console.WriteLine($"{newMusician.Name} Is {newMusician.Age} years old!");
                     newMusician.Age = usersAge;
+                    Console.WriteLine($"\n{newMusician.Name} Is {newMusician.Age} years old!");
                     break;
                 }
                 else
@@ -79,11 +79,11 @@ namespace RhythmsGonnaGetYou
                     newMusician.Instrument = usersInstrument;
                     if (usersInstrument == "Vocalist")
                     {
-                        Console.WriteLine($"{newMusician.Name} is a {newMusician.Instrument}");
+                        Console.WriteLine($"\n{newMusician.Name} is a {newMusician.Instrument}");
                     }
                     else
                     {
-                        Console.WriteLine($"{newMusician.Name} plays the {newMusician.Instrument}");
+                        Console.WriteLine($"\n{newMusician.Name} plays the {newMusician.Instrument}");
                     }
                     break;
                 }
@@ -96,7 +96,62 @@ namespace RhythmsGonnaGetYou
                 }
             }
 
+            var correctAnswer = false;
+            var bandmember = "";
+            while (!correctAnswer)
+            {
+                Console.WriteLine($"\nIs {newMusician.Name} currently a bandmember? (Yes/No)");
+                bandmember = Console.ReadLine().ToUpper();
 
+                if (bandmember == "Y" || bandmember == "YES")
+                {
+                    newMusician.CurrentMember = true;
+                    break;
+                }
+                else if (bandmember == "N" || bandmember == "NO")
+                {
+                    newMusician.CurrentMember = false;
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
+                    Console.WriteLine($"{"Your choice must be".Pastel(Color.Red)} {"Yes".Pastel(Color.Yellow)} {"or".Pastel(Color.Red)} {"No".Pastel(Color.Yellow)}{"!".Pastel(Color.Red)}");
+                }
+            }
+
+            var userTypedBand = false;
+            var membersBand = "";
+            while (!userTypedBand)
+            {
+                Console.WriteLine($"\nWhich band is {newMusician.Name} part of? ");
+                membersBand = Console.ReadLine();
+
+                if (membersBand != "")
+                {
+                    if (context.Bands.FirstOrDefault(band => band.Name == membersBand) != null)
+                    {
+                        newBand = context.Bands.FirstOrDefault(band => band.Name == membersBand);
+                        Console.WriteLine($"\n{newMusician.Name} added to {newBand.Name}");
+                        newMusician.BandId = newBand.Id;
+                        // newAlbum.Genre = newBand.Style;
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
+                        Console.WriteLine($"{"You must have an existing band name!".Pastel(Color.Red)}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
+                    Console.WriteLine($"{"You must have a band name!".Pastel(Color.Red)}");
+                }
+            }
+
+            context.Musicians.Add(newMusician);
+            context.SaveChanges();
         }
     }
 }

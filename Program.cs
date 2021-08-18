@@ -38,6 +38,7 @@ namespace RhythmsGonnaGetYou
             var newBand = new Bands();
             var newAlbum = new Albums();
             var newSong = new Songs();
+            var newMusician = new Musicians();
             var context = new RecordLabelContext();
 
             string name = WelcomeUser();
@@ -45,7 +46,7 @@ namespace RhythmsGonnaGetYou
             bool keepGoing, mangagerView;
 
             MainMenu(newBand, context, name, out keepGoing, out mangagerView);
-            ManagerMenu(newBand, newAlbum, newSong, context, name, ref keepGoing, ref mangagerView);
+            ManagerMenu(newBand, newAlbum, newSong, newMusician, context, name, ref keepGoing, ref mangagerView);
 
         }
 
@@ -61,7 +62,7 @@ namespace RhythmsGonnaGetYou
             return name;
         }
 
-        private static void ManagerMenu(Bands newBand, Albums newAlbum, Songs newSong, RecordLabelContext context, string name, ref bool keepGoing, ref bool mangagerView)
+        private static void ManagerMenu(Bands newBand, Albums newAlbum, Songs newSong, Musicians newMusician, RecordLabelContext context, string name, ref bool keepGoing, ref bool mangagerView)
         {
             var promptAgain = true;
 
@@ -74,7 +75,7 @@ namespace RhythmsGonnaGetYou
                 if (mangagerView)
                 {
 
-                    Console.Write($"\nWelcome to {"Hop".Pastel(Color.SeaGreen)}{"-".Pastel(Color.Violet)}{"Ip".Pastel(Color.LightSkyBlue)} {"Beats".Pastel(Color.MediumVioletRed)} manager view, {name}!\n\nWhat do you want to do?\n(V)iew all Albums in Band\n(A)dd New Album to Band\n(E)dit Album in Band\n(L)ist Albums by Release Date for Band\n(G)enre Ordered List of Albums\n(M)ain Menu\n(Q)uit\n: ");
+                    Console.Write($"\nWelcome to {"Hop".Pastel(Color.SeaGreen)}{"-".Pastel(Color.Violet)}{"Ip".Pastel(Color.LightSkyBlue)} {"Beats".Pastel(Color.MediumVioletRed)} manager view, {name}!\n\nWhat do you want to do?\n(V)iew all Albums in Band\n(A)dd New Album to Band\n(E)dit Album in Band\n(N)ew Band Member\n(L)ist Albums by Release Date for Band\n(G)enre Ordered List of Albums\n(S)ee All Band Members\n(M)ain Menu\n(Q)uit\n: ");
                     var choices = Console.ReadLine().ToUpper();
 
                     switch (choices)
@@ -109,41 +110,17 @@ namespace RhythmsGonnaGetYou
                             DisplayGreeting();
                             // keepGoing = false;
                             break;
-                        // (R)esign Band
-                        // case "R":
-                        //     // Console.Clear();
+                        // (N)ew Band Member
+                        case "N":
+                            // Console.Clear();
 
-                        //     var correctAnswer = false;
-                        //     var signed = "";
-                        //     while (!correctAnswer)
-                        //     {
-                        //         Console.WriteLine($"Are you sure you want to resign {newBand.Name}? ");
-                        //         signed = Console.ReadLine().ToUpper();
+                            newMusician.CreateMusician();
 
-                        //         if (signed == "Y" || signed == "YES")
-                        //         {
-                        //             newBand.IsSigned = true;
-                        //             Console.WriteLine($"\n{"{usersBand} had been reactivated within the studio!".Pastel(Color.Yellow)}");
-                        //             context.SaveChanges();
-                        //             break;
-                        //         }
-                        //         else if (signed == "N" || signed == "NO")
-                        //         {
-                        //             newBand.IsSigned = false;
-                        //             Console.WriteLine($"\n{"{usersBand} had not been resigned to the studio!".Pastel(Color.Yellow)}");
-                        //             context.SaveChanges();
-                        //             break;
-                        //         }
-                        //         else
-                        //         {
-                        //             Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
-                        //             Console.WriteLine($"{"Your choice must be".Pastel(Color.Red)} {"Yes".Pastel(Color.Yellow)} {"or".Pastel(Color.Red)} {"No".Pastel(Color.Yellow)}{"!".Pastel(Color.Red)}");
-                        //         }
-                        //     }
-
-                        //     PressAnyKey("\nPress Any Key to Continue! ");
-                        //     // keepGoing = false;
-                        //     break;
+                            PressAnyKey("\nPress Any Key to Continue! ");
+                            Console.Clear();
+                            DisplayGreeting();
+                            // keepGoing = false;
+                            break;
                         case "L":
                             // Console.Clear();
 
@@ -157,6 +134,16 @@ namespace RhythmsGonnaGetYou
                         case "G":
 
                             GenreOrder(context, newBand);
+
+                            PressAnyKey("\nPress Any Key to Continue! ");
+                            Console.Clear();
+                            DisplayGreeting();
+                            break;
+
+                        case "S":
+
+                            // GenreOrder(context, newBand);
+                            BandMembers(context, newBand);
 
                             PressAnyKey("\nPress Any Key to Continue! ");
                             Console.Clear();
@@ -341,6 +328,41 @@ namespace RhythmsGonnaGetYou
                         // album.Description();
                         // Console.WriteLine();
                         Console.WriteLine($"{newBand.Name} has an album named {album.Title}");
+                        // Console.WriteLine($"Album Title: {Title}, Genre: {Genre}, Explicit: {IsExplicit.ToString().ToUpper()}, Release Date: {ReleaseDate.ToString("d")}");
+                    }
+
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
+                    Console.WriteLine($"{"You must select a band!".Pastel(Color.Red)}");
+                }
+
+            }
+        }
+
+        private static void BandMembers(RecordLabelContext context, Bands newBand)
+        {
+            var userTypedName = false;
+            //  usersBand = "";
+            while (!userTypedName)
+            {
+                Console.WriteLine($"\nWhich band's members would you like to view?");
+                var usersBand = Console.ReadLine();
+
+                var bandExists = context.Bands.Any(band => band.Name == usersBand);
+                if (bandExists)
+                {
+                    newBand = context.Bands.FirstOrDefault(band => band.Name == usersBand);
+                    // newAlbum =
+
+                    Console.WriteLine($"\n{$"{newBand.Name}'s".Pastel(Color.Yellow)} Members:\n");
+                    foreach (var member in context.Musicians.Include(members => members.Band).Where(members => members.Band == newBand).OrderBy(members => members.Name))
+                    {
+                        // album.Description();
+                        // Console.WriteLine();
+                        Console.WriteLine($"{newBand.Name} has a member named {member.Name}");
                         // Console.WriteLine($"Album Title: {Title}, Genre: {Genre}, Explicit: {IsExplicit.ToString().ToUpper()}, Release Date: {ReleaseDate.ToString("d")}");
                     }
 
