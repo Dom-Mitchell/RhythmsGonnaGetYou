@@ -126,7 +126,7 @@ namespace RhythmsGonnaGetYou
                 Console.WriteLine($"\nWhat is {newBand.Name}'s website?");
                 usersWebsite = Console.ReadLine().ToLower();
 
-                if (usersWebsite.Contains(".com") && !prohibitedCharacters.Contains(usersWebsite) && usersWebsite.Length <= 63)
+                if (usersWebsite.Contains(".com") && !prohibitedCharacters.Contains(usersWebsite) && usersWebsite.Length <= 67)
                 {
                     newBand.Website = usersWebsite;
                     Console.WriteLine($"\n{newBand.Name}'s website is {newBand.Website}");
