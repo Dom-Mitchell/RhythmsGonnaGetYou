@@ -6,7 +6,7 @@ namespace RhythmsGonnaGetYou
 {
     public class RecordLabelContext : DbContext
     {
-        public DbSet<bin.Bands> Albums { get; set; }
+        public DbSet<Albums> Albums { get; set; }
         public DbSet<Bands> Bands { get; set; }
         public DbSet<Songs> Songs { get; set; }
         public DbSet<Musicians> Musicians { get; set; }

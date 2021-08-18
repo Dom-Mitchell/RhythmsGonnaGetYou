@@ -14,13 +14,13 @@ namespace RhythmsGonnaGetYou
         public int TrackNumber { get; set; }
         public int AlbumId { get; set; }
 
-        public bin.Bands Album { get; set; }
+        public Albums Album { get; set; }
 
         private RecordLabelContext context = new RecordLabelContext();
 
         public void CreateSong()
         {
-            var newAlbum = new bin.Bands();
+            var newAlbum = new Albums();
             // var newBand = new Bands();
             var newSong = new Songs();
 
@@ -135,12 +135,6 @@ namespace RhythmsGonnaGetYou
             context.Songs.Add(newSong);
             context.SaveChanges();
 
-
-
-
         }
-
-
-
     }
 }

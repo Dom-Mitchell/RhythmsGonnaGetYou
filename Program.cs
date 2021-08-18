@@ -36,12 +36,21 @@ namespace RhythmsGonnaGetYou
             // RecordLabelContext.Bands = MainMenu();
 
             var newBand = new Bands();
-            var newAlbum = new bin.Bands();
+            var newAlbum = new Albums();
             var newSong = new Songs();
             var context = new RecordLabelContext();
 
-            var keepGoing = true;
+            string name = WelcomeUser();
 
+            bool keepGoing, mangagerView;
+
+            MainMenu(newBand, context, name, out keepGoing, out mangagerView);
+            ManagerMenu(newBand, newAlbum, newSong, context, name, ref keepGoing, ref mangagerView);
+
+        }
+
+        private static string WelcomeUser()
+        {
             Console.Clear();
             DisplayGreeting();
 
@@ -49,13 +58,10 @@ namespace RhythmsGonnaGetYou
             var name = Console.ReadLine();
             Console.WriteLine($"\nHope you are doing well today, {name}!");
             PressAnyKey("\nPress Any Key to Continue! ");
-
-            bool mangagerView = MainMenu(newBand, context, ref keepGoing, name);
-            ManagerMenu(newBand, newAlbum, newSong, context, ref keepGoing, name, ref mangagerView);
-
+            return name;
         }
 
-        private static void ManagerMenu(Bands newBand, bin.Bands newAlbum, Songs newSong, RecordLabelContext context, ref bool keepGoing, string name, ref bool mangagerView)
+        private static void ManagerMenu(Bands newBand, Albums newAlbum, Songs newSong, RecordLabelContext context, string name, ref bool keepGoing, ref bool mangagerView)
         {
             var promptAgain = true;
 
@@ -158,7 +164,7 @@ namespace RhythmsGonnaGetYou
                             break;
                         case "M":
                             // Console.Clear();
-                            mangagerView = MainMenu(newBand, context, ref keepGoing, name);
+                            MainMenu(newBand, context, name, out keepGoing, out mangagerView);
                             // PressAnyKey("\nPress Any Key to Continue! ");
                             // keepGoing = false;
                             break;
@@ -183,14 +189,14 @@ namespace RhythmsGonnaGetYou
             }
         }
 
-        private static bool MainMenu(Bands newBand, RecordLabelContext context, ref bool keepGoing, string name)
+        private static void MainMenu(Bands newBand, RecordLabelContext context, string name, out bool keepGoing, out bool mangagerView)
         {
+            keepGoing = true;
             Console.Clear();
             DisplayGreeting();
 
             // var choices = "";
-            var mangagerView = false;
-
+            mangagerView = false;
             while (keepGoing && !mangagerView)
             {
                 Console.Write("\nWhat do you want to do?\n(C)reate Band\n(V)iew Bands (Manager View)\n(L)ist all Bands\n(R)emove Band\n(W)elcome Band Back\n(S)igned Bands\n(U)nsigned Bands\n(Q)uit\n: ");
@@ -282,8 +288,6 @@ namespace RhythmsGonnaGetYou
                 }
 
             }
-
-            return mangagerView;
         }
 
         private static bool EditExistingBands(bool mangagerView, string name)

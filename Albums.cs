@@ -6,7 +6,7 @@ using Pastel;
 
 namespace RhythmsGonnaGetYou.bin
 {
-    public class Bands
+    public class Albums
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -22,7 +22,7 @@ namespace RhythmsGonnaGetYou.bin
 
         public void CreateAlbum()
         {
-            var newAlbum = new Bands();
+            var newAlbum = new Albums();
             var newBand = new Bands();
 
             var userTypedAlbum = false;

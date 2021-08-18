@@ -20,7 +20,7 @@ namespace RhythmsGonnaGetYou
         public string ContactName { get; set; }
         public string ContactPhoneNumber { get; set; }
 
-        public List<bin.Bands> Albums { get; set; }
+        public List<Albums> Albums { get; set; }
 
         private RecordLabelContext context = new RecordLabelContext();
 
@@ -275,31 +275,5 @@ namespace RhythmsGonnaGetYou
             context.SaveChanges();
 
         }
-
-        // public void ExistingBand()
-        // {
-        //     // var context = new RecordLabelContext();
-        //     var existingUserBand = "";
-        //     var newBand = new Bands();
-
-        //     while (!BandExists)
-        //     {
-        //         Console.WriteLine("\nPlease enter your band name ");
-        //         existingUserBand = Console.ReadLine();
-
-        //         if (context.Bands.Any(band => band.Name == existingUserBand))
-        //         {
-        //             Console.Write($"{"Band found!".Pastel(Color.LimeGreen)}\n");
-        //             break;
-        //         }
-        //         else
-        //         {
-        //             Console.WriteLine($"{"Incorrect band name. Please try again!".Pastel(Color.Red)}");
-        //         }
-        //     }
-        //     BandExists = true;
-
-        // }
-
     }
 }
