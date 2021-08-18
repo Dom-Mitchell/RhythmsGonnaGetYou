@@ -357,12 +357,17 @@ namespace RhythmsGonnaGetYou
                     newBand = context.Bands.FirstOrDefault(band => band.Name == usersBand);
                     // newAlbum =
 
-                    Console.WriteLine($"\n{$"{newBand.Name}'s".Pastel(Color.Yellow)} Members:\n");
-                    foreach (var member in context.Musicians.Include(members => members.Band).Where(members => members.Band == newBand).OrderBy(members => members.Name))
+                    Console.WriteLine($"\n{$"{newBand.Name}'s".Pastel(Color.Yellow)} Current Members:\n");
+                    foreach (var member in context.Musicians.Include(members => members.Band).Where(members => members.Band == newBand && members.CurrentMember == true).OrderBy(members => members.Name))
                     {
-                        // album.Description();
-                        // Console.WriteLine();
                         Console.WriteLine($"{newBand.Name} has a member named {member.Name}");
+                        // Console.WriteLine($"Album Title: {Title}, Genre: {Genre}, Explicit: {IsExplicit.ToString().ToUpper()}, Release Date: {ReleaseDate.ToString("d")}");
+                    }
+
+                    Console.WriteLine($"\n{$"{newBand.Name}'s".Pastel(Color.Yellow)} Past Members:\n");
+                    foreach (var member in context.Musicians.Include(members => members.Band).Where(members => members.Band == newBand && members.CurrentMember == false).OrderBy(members => members.Name))
+                    {
+                        Console.WriteLine($"{newBand.Name} had a member named {member.Name}");
                         // Console.WriteLine($"Album Title: {Title}, Genre: {Genre}, Explicit: {IsExplicit.ToString().ToUpper()}, Release Date: {ReleaseDate.ToString("d")}");
                     }
 
