@@ -48,10 +48,10 @@ UPDATE "Bands" SET "IsSigned" = 'True' WHERE "Name" = 'Juice WRLD';
 SELECT "Albums"."Title" FROM "Albums" JOIN "Bands" ON "Albums"."Id" = "Bands"."Id" WHERE "Bands"."Name" = 'Juice WRLD';
 
 -- Step 14
-SELECT * FROM "Albums" ORDER BY "ReleaseDate"
+SELECT * FROM "Albums" ORDER BY "ReleaseDate";
 
 -- Step 15
-SELECT "Name" FROM "Bands" WHERE "IsSigned" = 'True'
+SELECT "Name" FROM "Bands" WHERE "IsSigned" = 'True';
 
 -- Step 16
-SELECT "Name" FROM "Bands" WHERE "IsSigned" = 'False'
+SELECT "Name" FROM "Bands" WHERE "IsSigned" = 'False';

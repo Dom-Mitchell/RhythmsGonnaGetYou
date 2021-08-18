@@ -6,3 +6,10 @@ CREATE TABLE "Musicians" (
 "CurrentMember" BOOLEAN,
 "BandId" INTEGER NULL REFERENCES "Bands" ("Id")
 );
+
+CREATE TABLE "Concerts" (
+"Id" SERIAL PRIMARY KEY,
+"Place" TEXT,
+"Date" DATE,
+"BandId" INTEGER NULL REFERENCES "Bands" ("Id")
+);

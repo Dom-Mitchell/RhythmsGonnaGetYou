@@ -25,18 +25,23 @@ namespace RhythmsGonnaGetYou
             var newBand = new Bands();
             var newMusician = new Musicians();
 
-            var instruments = new List<string>() { "Drums", "Electric Guitar", "Bass Guitar", "Keyboard", "Double Bass", "Piano", "Clarinet", "Trumpet", "Violin", "Saxophone", "Flute", "Trombone", "Acoustic Guitar", "Tuba", "French Horn", "Euphonium", "Cowbell", "Oboe", "Harmonica", "Synthesizer", "Triangle", "Organ", "Bassoon", "Bass Clarinet", "Ukulele", "Percussion", "Xylophone", "Bagpipes", "Cello", "Vocalist", "Baritone Sax", "Timpani", "Accordion", "Viola", "Turntables", "Snare Drums", "Guitar", "Bongos", "Sarangi", "Piccolo", "Recorder", "Banjo", "Soprano Saxophone", "Congas", "Baritone" };
+            // Instrument list from https://github.com/Domanator13/RhythmsGonnaGetYou/blob/trunk/INSTRUMENTS.md
+            var instruments = new List<string>() { "Accordion", "Acoustic Guitar", "Bagpipes", "Banjo", "Baritone Sax", "Baritone",
+            "Bass Clarinet", "Bass Guitar", "Bassoon", "Bongos", "Cello", "Clarinet", "Congas", "Cowbell", "Double Bass", "Drums",
+            "Electric Guitar", "Euphonium", "Flute", "French Horn", "Guitar", "Harmonica", "Keyboard", "Oboe", "Organ", "Percussion",
+            "Piano", "Piccolo", "Recorder", "Sarangi", "Saxophone", "Snare Drums", "Soprano Saxophone", "Synthesizer", "Timpani",
+            "Triangle", "Trombone", "Trumpet", "Tuba", "Turntables", "Ukulele", "Viola", "Violin", "Vocalist", "Xylophone" };
 
             var userTypedName = false;
-            var usersBand = "";
+            var usersMusician = "";
             while (!userTypedName)
             {
                 Console.WriteLine("\nWhat is the musician's name?");
-                usersBand = Console.ReadLine();
+                usersMusician = Console.ReadLine();
 
-                if (usersBand != "")
+                if (usersMusician != "")
                 {
-                    newMusician.Name = usersBand;
+                    newMusician.Name = usersMusician;
                     break;
                 }
                 else
@@ -121,17 +126,17 @@ namespace RhythmsGonnaGetYou
             }
 
             var userTypedBand = false;
-            var membersBand = "";
+            var usersBand = "";
             while (!userTypedBand)
             {
                 Console.WriteLine($"\nWhich band is {newMusician.Name} part of? ");
-                membersBand = Console.ReadLine();
+                usersBand = Console.ReadLine();
 
-                if (membersBand != "")
+                if (usersBand != "")
                 {
-                    if (context.Bands.FirstOrDefault(band => band.Name == membersBand) != null)
+                    if (context.Bands.FirstOrDefault(band => band.Name == usersBand) != null)
                     {
-                        newBand = context.Bands.FirstOrDefault(band => band.Name == membersBand);
+                        newBand = context.Bands.FirstOrDefault(band => band.Name == usersBand);
                         Console.WriteLine($"\n{newMusician.Name} added to {newBand.Name}");
                         newMusician.BandId = newBand.Id;
                         // newAlbum.Genre = newBand.Style;

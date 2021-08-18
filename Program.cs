@@ -39,6 +39,7 @@ namespace RhythmsGonnaGetYou
             var newAlbum = new Albums();
             var newSong = new Songs();
             var newMusician = new Musicians();
+            var newConcert = new Concerts();
             var context = new RecordLabelContext();
 
             string name = WelcomeUser();
@@ -46,7 +47,7 @@ namespace RhythmsGonnaGetYou
             bool keepGoing, mangagerView;
 
             MainMenu(newBand, context, name, out keepGoing, out mangagerView);
-            ManagerMenu(newBand, newAlbum, newSong, newMusician, context, name, ref keepGoing, ref mangagerView);
+            ManagerMenu(newBand, newAlbum, newSong, newMusician, newConcert, context, name, ref keepGoing, ref mangagerView);
 
         }
 
@@ -62,7 +63,7 @@ namespace RhythmsGonnaGetYou
             return name;
         }
 
-        private static void ManagerMenu(Bands newBand, Albums newAlbum, Songs newSong, Musicians newMusician, RecordLabelContext context, string name, ref bool keepGoing, ref bool mangagerView)
+        private static void ManagerMenu(Bands newBand, Albums newAlbum, Songs newSong, Musicians newMusician, Concerts newConcert, RecordLabelContext context, string name, ref bool keepGoing, ref bool mangagerView)
         {
             var promptAgain = true;
 
@@ -75,7 +76,7 @@ namespace RhythmsGonnaGetYou
                 if (mangagerView)
                 {
 
-                    Console.Write($"\nWelcome to {"Hop".Pastel(Color.SeaGreen)}{"-".Pastel(Color.Violet)}{"Ip".Pastel(Color.LightSkyBlue)} {"Beats".Pastel(Color.MediumVioletRed)} manager view, {name}!\n\nWhat do you want to do?\n(V)iew all Albums in Band\n(A)dd New Album to Band\n(E)dit Album in Band\n(N)ew Band Member\n(L)ist Albums by Release Date for Band\n(G)enre Ordered List of Albums\n(S)ee All Band Members\n(M)ain Menu\n(Q)uit\n: ");
+                    Console.Write($"\nWelcome to {"Hop".Pastel(Color.SeaGreen)}{"-".Pastel(Color.Violet)}{"Ip".Pastel(Color.LightSkyBlue)} {"Beats".Pastel(Color.MediumVioletRed)} manager view, {name}!\n\nWhat do you want to do?\n(V)iew all Albums in Band\n(A)dd New Album to Band\n(E)dit Album in Band\n(N)ew Band Member\n(C)reate Concert\n(L)ist Albums by Release Date for Band\n(G)enre Ordered List of Albums\n(S)ee All Band Members\n(P)erformances\n(M)ain Menu\n(Q)uit\n: ");
                     var choices = Console.ReadLine().ToUpper();
 
                     switch (choices)
@@ -121,6 +122,15 @@ namespace RhythmsGonnaGetYou
                             DisplayGreeting();
                             // keepGoing = false;
                             break;
+                        case "C":
+
+                            // GenreOrder(context, newBand);
+                            newConcert.CreateConcert();
+
+                            PressAnyKey("\nPress Any Key to Continue! ");
+                            Console.Clear();
+                            DisplayGreeting();
+                            break;
                         case "L":
                             // Console.Clear();
 
@@ -144,6 +154,17 @@ namespace RhythmsGonnaGetYou
 
                             // GenreOrder(context, newBand);
                             BandMembers(context, newBand);
+
+                            PressAnyKey("\nPress Any Key to Continue! ");
+                            Console.Clear();
+                            DisplayGreeting();
+                            break;
+
+                        case "P":
+
+                            // GenreOrder(context, newBand);
+                            // BandMembers(context, newBand);
+                            Concerts(context, newBand);
 
                             PressAnyKey("\nPress Any Key to Continue! ");
                             Console.Clear();
@@ -339,6 +360,37 @@ namespace RhythmsGonnaGetYou
                     Console.WriteLine($"{"You must select a band!".Pastel(Color.Red)}");
                 }
 
+            }
+        }
+
+        private static void Concerts(RecordLabelContext context, Bands newBand)
+        {
+            var userTypedName = false;
+            //  usersBand = "";
+            while (!userTypedName)
+            {
+                Console.WriteLine($"\nWhich band's concerts would you like to view?");
+                var usersBand = Console.ReadLine();
+
+                var bandExists = context.Bands.Any(band => band.Name == usersBand);
+                if (bandExists)
+                {
+                    newBand = context.Bands.FirstOrDefault(band => band.Name == usersBand);
+                    // newAlbum =
+
+                    Console.WriteLine($"\n{$"{newBand.Name}'s".Pastel(Color.Yellow)} Concerts:\n");
+                    foreach (var concert in context.Concerts.Include(concerts => concerts.Band).Where(concerts => concerts.Band == newBand).OrderBy(concerts => concerts.Date))
+                    {
+                        Console.WriteLine($"{newBand.Name} has a concert on {concert.Date.ToLongDateString()}");
+                        // Console.WriteLine($"Album Title: {Title}, Genre: {Genre}, Explicit: {IsExplicit.ToString().ToUpper()}, Release Date: {ReleaseDate.ToString("d")}");
+                    }
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine($"\n{"Your answer was invalid. Please try again!".Pastel(Color.Red)}");
+                    Console.WriteLine($"{"You must select a band!".Pastel(Color.Red)}");
+                }
             }
         }
 
