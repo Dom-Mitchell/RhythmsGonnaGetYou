@@ -612,8 +612,8 @@ namespace RhythmsGonnaGetYou
 
         static void Main(string[] args)
         {
-            // RecordLabelContext.Bands = MainMenu();
-
+            // RecordLabelContext.Bands = MainMenu()
+            //dfsdf
             var newBand = new Bands();
             var newAlbum = new Albums();
             var newSong = new Songs();
